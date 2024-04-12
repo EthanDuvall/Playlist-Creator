@@ -5,7 +5,7 @@ import Login from "../Login/Login";
 import "./App.css";
 
 function App() {
-  const clientID = "f8791f93dad4435cafbc64320e66c76f";
+  const clientID = "";
   const clientSecret = "";
   const [token, setToken] = useState(null);
 
