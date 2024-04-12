@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const clientID = "f8791f93dad4435cafbc64320e66c76f";
-  const clientSecret = "2f042acf3d6d4599ae16866c2531b98d";
+  const clientSecret = "";
   const [token, setToken] = useState(null);
 
   useEffect(() => {
