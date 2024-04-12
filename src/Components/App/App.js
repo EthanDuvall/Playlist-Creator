@@ -8,8 +8,10 @@ function App() {
   const clientID = process.env.REACT_APP_API_ID;
   const clientSecret = process.env.REACT_APP_API_SECRET;
   const [token, setToken] = useState(null);
-
+  console.log('Client ID:', process.env.REACT_APP_API_ID);
+  console.log('Client Secret:', process.env.REACT_APP_API_SECRET);
   useEffect(() => {
+    
     const requestOptions = {
       method: "POST",
       headers: {
