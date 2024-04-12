@@ -5,8 +5,8 @@ import Login from "../Login/Login";
 import "./App.css";
 
 function App() {
-  const clientID = "f8791f93dad4435cafbc64320e66c76f";
-  const clientSecret = "2f042acf3d6d4599ae16866c2531b98d";
+  const clientID = process.env.REACT_APP_API_ID;
+  const clientSecret = process.env.REACT_APP_API_SECRET;
   const [token, setToken] = useState(null);
 
   useEffect(() => {
