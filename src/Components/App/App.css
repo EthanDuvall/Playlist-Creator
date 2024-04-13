@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+header{
+  display: flex;
+  justify-content: space-between;
+  text-align: end;
+  background-color: black;
+}
+
+.spotifyLogo{
+  width: 300px;
+}
+
+h1{
+  color:white;
+  width: 58%;
+}
+
+body{
+  background-color: #400187;
+}
+
