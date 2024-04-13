@@ -4,13 +4,12 @@ function fetchToken(clientID, clientSecret, code) {
   params.append("redirect_uri","http://localhost:3000/dashboard");
   params.append("grant_type", "authorization_code");
 
-  const authHeader = btoa(`${clientID}:${clientSecret}`);
 
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Basic ${authHeader}`,
+      'Authorization': 'Basic ' + btoa(`${clientID}:${clientSecret}`)
     },
     body: params.toString(),
   };
