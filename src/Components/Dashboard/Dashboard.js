@@ -33,7 +33,7 @@ function Dashboard({ clientID, clientSecret }) {
     getProfile(token)
       .then((fetchProfile) => {
         if (fetchProfile) {
-          console.log(fetchProfile);
+          setProfile(fetchProfile);
         }
       })
       .catch((error) => {
@@ -44,7 +44,9 @@ function Dashboard({ clientID, clientSecret }) {
   return (
     <div className="dashboard">
       <div>
-        <h2>{profile.displayName}</h2>
+        <img className = "profile-img"src = {profile.images[1].url} alt = "profile picture"/>
+        <h2>{profile.display_name}</h2>
+        <button className="make-playlist-btn">Make Playlist</button>
       </div>
       <div>
         <h3>Playlists</h3>
