@@ -44,7 +44,9 @@ function Dashboard({ clientID, clientSecret }) {
   return (
     <div className="dashboard">
       <div>
+        {profile.images &&
         <img className = "profile-img"src = {profile.images[1].url} alt = "profile picture"/>
+        }
         <h2>{profile.display_name}</h2>
         <button className="make-playlist-btn">Make Playlist</button>
       </div>
