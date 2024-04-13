@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Login.css"
 function Login({ clientId }) {
   const redirect_uri = 'http://localhost:3000/dashboard'; 
   const scope = 'user-read-private user-read-email';
@@ -11,9 +11,7 @@ function Login({ clientId }) {
   };
 
   return (
-    <div>
-      <button onClick={handleLogin}>Login with Spotify</button>
-    </div>
+      <button className = "loginBtn" onClick={handleLogin}>Login with Spotify</button>
   );
 }
 
