@@ -1,31 +1,30 @@
 function fetchToken(clientID, clientSecret, code) {
-  const params = new URLSearchParams();
-  params.append("grant_type", "authorization_code");
-  params.append("code", code);
-  params.append("redirect_uri", "http://localhost:3000/dashboard");
-
-  const requestOptions = {
+  const redirect_uri = "http://localhost:3000/dashboard";
+  const authOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Basic " + btoa(`${clientID}:${clientSecret}`),
+      Authorization: "Basic " + btoa(`${clientID}:${clientSecret}`),
     },
-    body: params.toString(),
+    body: new URLSearchParams({
+      code,
+      redirect_uri: redirect_uri,
+      grant_type: "authorization_code",
+    }),
   };
 
-  return fetch("https://accounts.spotify.com/api/token", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.access_token) {
-        return data.access_token;
-      } else {
-        throw new Error("Failed to fetch access token");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      throw error;
-    });
+  return fetch('https://accounts.spotify.com/api/token', authOptions)
+  .then((res) => {
+    if (!res.ok) {
+      console.error("Failed to fetch");
+    } else {
+      return res.json();
+    }
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => console.error(err));
 }
 
 function getProfile(token) {
@@ -40,7 +39,6 @@ function getProfile(token) {
     .then((res) => {
       if (!res.ok) {
         console.error("Failed to fetch");
-        throw new Error("Failed to fetch");
       } else {
         return res.json();
       }

@@ -1,12 +1,12 @@
 import "./Dashboard.css";
 import { getProfile, fetchToken } from "../../fetchcalls";
 import { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
+
 function Dashboard({ clientID, clientSecret }) {
   const [token, setToken] = useState(null);
-  const [profile, setProfile] = useState({})
+  const [profile, setProfile] = useState({});
   const location = useLocation();
-
 
   function displayProfile() {
     setProfile(getProfile(token));
@@ -17,21 +17,29 @@ function Dashboard({ clientID, clientSecret }) {
     const code = searchParams.get("code");
 
     if (code) {
-        console.log("code",code)
       fetchToken(clientID, clientSecret, code)
-        .then((accessToken) => {
-          setToken(accessToken);
-
+        .then((fetchToken) => {
+          if (fetchToken) {
+            setToken(fetchToken.access_token);
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
         });
     }
-    
-  }, []);
-  useEffect (() => {
-    displayProfile()
-  },[token])
+  }, [clientID]);
+
+  useEffect(() => {
+    getProfile(token)
+      .then((fetchProfile) => {
+        if (fetchProfile) {
+          console.log(fetchProfile);
+        }
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  }, [token]);
 
   return (
     <div className="dashboard">
