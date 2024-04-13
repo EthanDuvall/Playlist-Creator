@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom'
 function Dashboard({ clientID, clientSecret }) {
   const [token, setToken] = useState(null);
+  const [profile, setProfile] = useState({})
   const location = useLocation();
 
 
   function displayProfile() {
-    console.log(getProfile(token));
+    setProfile(getProfile(token));
   }
 
   useEffect(() => {
@@ -16,6 +17,7 @@ function Dashboard({ clientID, clientSecret }) {
     const code = searchParams.get("code");
 
     if (code) {
+        console.log("code",code)
       fetchToken(clientID, clientSecret, code)
         .then((accessToken) => {
           setToken(accessToken);
@@ -25,7 +27,6 @@ function Dashboard({ clientID, clientSecret }) {
           console.error("Error:", error);
         });
     }
-    console.log(token)
     
   }, []);
   useEffect (() => {
@@ -35,7 +36,7 @@ function Dashboard({ clientID, clientSecret }) {
   return (
     <div className="dashboard">
       <div>
-        <h2>Ethan</h2>
+        <h2>{profile.displayName}</h2>
       </div>
       <div>
         <h3>Playlists</h3>
