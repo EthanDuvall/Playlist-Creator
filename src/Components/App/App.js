@@ -16,7 +16,7 @@ function App() {
     <>
       <header>
         <h1>Playlist Builder</h1>
-        <img className="spotifyLogo" src={spotifyLogo} />
+        <img className="spotifyLogo" src={spotifyLogo} alt ="spotify logo" />
       </header>
       <main>
         <Routes>

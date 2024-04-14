@@ -22,8 +22,13 @@ function Dashboard({ clientID, clientSecret }) {
         return (
           <div className="playlist">
             <Link to={playlist.external_urls.spotify}>
-              <h4>{playlist.name}</h4>
-              <img src={playlist.images[0].url} id={playlist.id} />
+              <h4 className="playlist-name">{playlist.name}</h4>
+              <img
+                className="playlist-cover"
+                src={playlist.images[0].url}
+                id={playlist.id}
+                alt={`cover of playlist: ${playlist.name}`}
+              />
             </Link>
           </div>
         );
@@ -35,13 +40,15 @@ function Dashboard({ clientID, clientSecret }) {
       return songs.items.map((song) => {
         console.log(song.album);
         return (
+          <Link to={song.external_urls.spotify}>
           <div className="top-5-song" id={song.id}>
-            <Link to={song.external_urls.spotify}>
-              <img src={song.album.images[2].url}/>
+              <img className="song-cover" src={song.album.images[1].url} alt={song.album.name} />
+              <div className="name-artist-holder">
               <h4>{song.name}</h4>
               <p>{song.album.artists[0].name}</p>
-            </Link>
+              </div>
           </div>
+          </Link>
         );
       });
     }
@@ -97,7 +104,7 @@ function Dashboard({ clientID, clientSecret }) {
 
   return (
     <div className="dashboard">
-      <div>
+      <div className="profile">
         {profile.images && (
           <img
             className="profile-img"
@@ -105,18 +112,20 @@ function Dashboard({ clientID, clientSecret }) {
             alt="profile picture"
           />
         )}
-        <h2>{profile.display_name}</h2>
-        <button className="make-playlist-btn">Make Playlist</button>
+        <div className="display-name-container">
+          <h2 className="profile-name">{profile.display_name}</h2>
+          <button className="make-playlist-btn">Make Playlist</button>
+        </div>
       </div>
-      <div>
+      <div className="playlists">
         <h3>Playlists</h3>
         {playlists && (
           <div className="playlist-holder">{displayPlaylist()}</div>
         )}
       </div>
-      <div>
-        <h3>Top Songs</h3>
-        {songs && <div className="top-songs-display">{displayTopSongs()}</div>}
+      <div className="top-songs">
+        <h3>Top 5 Songs</h3>
+        {songs && <div className="top-songs-holder">{displayTopSongs()}</div>}
       </div>
     </div>
   );
