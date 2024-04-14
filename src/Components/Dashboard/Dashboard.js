@@ -1,5 +1,10 @@
 import "./Dashboard.css";
-import { getProfile, fetchToken, getPlaylists } from "../../fetchcalls";
+import {
+  getProfile,
+  fetchToken,
+  getPlaylists,
+  getTop5Songs,
+} from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 
@@ -7,6 +12,7 @@ function Dashboard({ clientID, clientSecret }) {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState([]);
+  const [songs, setSongs] = useState({});
   const location = useLocation();
 
   function displayPlaylist() {
@@ -14,10 +20,26 @@ function Dashboard({ clientID, clientSecret }) {
       return playlists.items.map((playlist) => {
         console.log(playlist);
         return (
-          <div>
-            <Link to = {playlist.external_urls.spotify}>
-            <h4>{playlist.name}</h4>
-            <img src={playlist.images[0].url} id={playlist.id} />
+          <div className="playlist">
+            <Link to={playlist.external_urls.spotify}>
+              <h4>{playlist.name}</h4>
+              <img src={playlist.images[0].url} id={playlist.id} />
+            </Link>
+          </div>
+        );
+      });
+    }
+  }
+  function displayTopSongs() {
+    if (songs.items) {
+      return songs.items.map((song) => {
+        console.log(song.album);
+        return (
+          <div className="top-5-song" id={song.id}>
+            <Link to={song.external_urls.spotify}>
+              <img src={song.album.images[2].url}/>
+              <h4>{song.name}</h4>
+              <p>{song.album.artists[0].name}</p>
             </Link>
           </div>
         );
@@ -62,6 +84,15 @@ function Dashboard({ clientID, clientSecret }) {
       .catch((error) => {
         console.error("error", error);
       });
+    getTop5Songs(token)
+      .then((fetchSongs) => {
+        if (fetchSongs) {
+          setSongs(fetchSongs);
+        }
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
   }, [token]);
 
   return (
@@ -84,7 +115,8 @@ function Dashboard({ clientID, clientSecret }) {
         )}
       </div>
       <div>
-        <h3>Top Genres</h3>
+        <h3>Top Songs</h3>
+        {songs && <div className="top-songs-display">{displayTopSongs()}</div>}
       </div>
     </div>
   );
