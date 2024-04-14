@@ -13,18 +13,18 @@ function fetchToken(clientID, clientSecret, code) {
     }),
   };
 
-  return fetch('https://accounts.spotify.com/api/token', authOptions)
-  .then((res) => {
-    if (!res.ok) {
-      console.error("Failed to fetch");
-    } else {
-      return res.json();
-    }
-  })
-  .then((data) => {
-    return data;
-  })
-  .catch((err) => console.error(err));
+  return fetch("https://accounts.spotify.com/api/token", authOptions)
+    .then((res) => {
+      if (!res.ok) {
+        console.error("Failed to fetch Token");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => console.error(err));
 }
 
 function getProfile(token) {
@@ -38,7 +38,7 @@ function getProfile(token) {
   return fetch("https://api.spotify.com/v1/me", requestOptions)
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch");
+        console.error("Failed to fetch User");
       } else {
         return res.json();
       }
@@ -49,4 +49,23 @@ function getProfile(token) {
     .catch((err) => console.error(err));
 }
 
-export { fetchToken, getProfile };
+function getPlaylists(token) {
+  const auth = { 
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+  return fetch("https://api.spotify.com/v1/me/playlists", auth)
+  .then((res) => {
+    if (!res.ok) {
+      console.error("Failed to fetch Playlist");
+    } else {
+      return res.json();
+    }
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => console.error(err));
+}
+
+export { fetchToken, getProfile, getPlaylists };
