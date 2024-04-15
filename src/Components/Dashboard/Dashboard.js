@@ -6,7 +6,7 @@ import {
   getTop5Songs,
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate} from "react-router-dom";
 
 function Dashboard({ clientID, clientSecret }) {
   const [token, setToken] = useState(null);
@@ -14,6 +14,7 @@ function Dashboard({ clientID, clientSecret }) {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState({});
   const location = useLocation();
+  const Navigate = useNavigate();
 
   function displayPlaylist() {
     if (playlists.items) {
@@ -52,6 +53,9 @@ function Dashboard({ clientID, clientSecret }) {
         );
       });
     }
+  }
+  function routeToCreate(){
+    Navigate("/create")
   }
 
   useEffect(() => {
@@ -114,7 +118,7 @@ function Dashboard({ clientID, clientSecret }) {
         )}
         <div className="display-name-container">
           <h2 className="profile-name">{profile.display_name}</h2>
-          <button className="make-playlist-btn">Make Playlist</button>
+          <button className="make-playlist-btn" onClick={routeToCreate}>Make Playlist</button>
         </div>
       </div>
       <div className="playlists">
