@@ -1,21 +1,89 @@
-function fetchToken(clientID, clientSecret) {
-  const requestOptions = {
+function fetchToken(clientID, clientSecret, code) {
+  const redirect_uri = "http://localhost:3000/dashboard";
+  const auth = {
     method: "POST",
     headers: {
-      Authorization: "Basic " + btoa(`${clientID}:${clientSecret}`),
       "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Basic " + btoa(`${clientID}:${clientSecret}`),
     },
-    body: "grant_type=client_credentials",
+    body: new URLSearchParams({
+      code,
+      redirect_uri: redirect_uri,
+      grant_type: "authorization_code",
+    }),
   };
 
-return fetch("https://accounts.spotify.com/api/token", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.access_token) {
-        return data.access_token
+  return fetch("https://accounts.spotify.com/api/token", auth)
+    .then((res) => {
+      if (!res.ok) {
+        console.error("Failed to fetch Token");
+      } else {
+        return res.json();
       }
     })
-    .catch((error) => console.error("Error:", error));
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => console.error(err));
 }
 
-export { fetchToken };
+function getProfile(token) {
+  const auth = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return fetch("https://api.spotify.com/v1/me", auth)
+    .then((res) => {
+      if (!res.ok) {
+        console.error("Failed to fetch User");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => console.error(err));
+}
+
+function getPlaylists(token) {
+  const auth = { 
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+  return fetch("https://api.spotify.com/v1/me/playlists", auth)
+  .then((res) => {
+    if (!res.ok) {
+      console.error("Failed to fetch Playlist");
+    } else {
+      return res.json();
+    }
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => console.error(err));
+}
+function getTop5Songs(token){
+  const auth = { 
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+
+  return fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5", auth)
+  .then((res) => {
+    if (!res.ok) {
+      console.error("Failed to fetch Playlist");
+    } else {
+      return res.json();
+    }
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => console.err("err",err))
+}
+export { fetchToken, getProfile, getPlaylists, getTop5Songs};

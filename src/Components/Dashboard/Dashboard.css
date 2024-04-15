@@ -1,0 +1,118 @@
+.profile-img {
+  border-radius: 50%;
+}
+.make-playlist-btn {
+  border: none;
+  background-color: #1ab26b;
+  height: 20%;
+  color: white;
+  width: 300px;
+  border-radius: 2%;
+  font-size: 2vh;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 10px;
+  color: white;
+}
+
+.profile {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  display: flex;
+}
+.profile-name {
+  font-size: 8vh;
+  margin-bottom: 0;
+}
+.profile-img {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+}
+.display-name-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 20px;
+  height: 70%;
+}
+
+h3 {
+  font-size: 5vh;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.playlists {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+  margin-left: 25px;
+  text-align: left;
+}
+.playlist-holder {
+  background-color: #046c3c;
+  overflow-x: auto;
+  height: 250px;
+  display: flex;
+  width: 800px;
+  border-radius: 1%;
+}
+.playlist-cover {
+  width: 200px;
+  height: 200px;
+}
+.playlist-name {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.playlist {
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.top-songs {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 680px;
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.top-songs-holder {
+  background-color: #046c3c;
+  width: 400px;
+  height: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 1%;
+}
+
+.top-5-song {
+  display: flex;
+  margin-left: 20px;
+}
+.song-cover {
+  width: 100px;
+  height: 100px;
+}
+.name-artist-holder {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  text-align: left;
+}
+
+h4 {
+  font-size: 2vh;
+  margin: 0;
+}
