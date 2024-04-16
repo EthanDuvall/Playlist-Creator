@@ -1,15 +1,14 @@
 import "./Dashboard.css";
 import {
   getProfile,
-  fetchToken,
+  fetchAuthToken,
   getPlaylists,
   getTop5Songs,
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate} from "react-router-dom";
 
-function Dashboard({ clientID, clientSecret }) {
-  const [token, setToken] = useState(null);
+function Dashboard({ clientID, clientSecret, authToken, setAuthToken }) {
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState({});
@@ -63,10 +62,10 @@ function Dashboard({ clientID, clientSecret }) {
     const code = searchParams.get("code");
 
     if (code) {
-      fetchToken(clientID, clientSecret, code)
+      fetchAuthToken(clientID, clientSecret, code)
         .then((fetchToken) => {
           if (fetchToken) {
-            setToken(fetchToken.access_token);
+            setAuthToken(fetchToken.access_token);
           }
         })
         .catch((error) => {
@@ -76,7 +75,7 @@ function Dashboard({ clientID, clientSecret }) {
   }, [clientID]);
 
   useEffect(() => {
-    getProfile(token)
+    getProfile(authToken)
       .then((fetchProfile) => {
         if (fetchProfile) {
           setProfile(fetchProfile);
@@ -86,7 +85,7 @@ function Dashboard({ clientID, clientSecret }) {
         console.error("error", error);
       });
 
-    getPlaylists(token)
+    getPlaylists(authToken)
       .then((fetchPlaylists) => {
         if (fetchPlaylists) {
           setPlaylists(fetchPlaylists);
@@ -95,7 +94,7 @@ function Dashboard({ clientID, clientSecret }) {
       .catch((error) => {
         console.error("error", error);
       });
-    getTop5Songs(token)
+    getTop5Songs(authToken)
       .then((fetchSongs) => {
         if (fetchSongs) {
           setSongs(fetchSongs);
@@ -104,7 +103,7 @@ function Dashboard({ clientID, clientSecret }) {
       .catch((error) => {
         console.error("error", error);
       });
-  }, [token]);
+  }, [authToken]);
 
   return (
     <div className="dashboard">

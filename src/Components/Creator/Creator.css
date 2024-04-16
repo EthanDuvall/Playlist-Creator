@@ -1,0 +1,23 @@
+form{
+    background-color: #046c3c;
+    height: 650px;
+    width: 1000px;
+    border-radius: 2%;
+    display: flex;
+    justify-content: space-around;
+}
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+}
+.create-form-holder{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top:30px;
+}
+.genre-holder{
+    background-color:#682eaB;
+}
+.search-holder{
+    background-color: #682eaB;
+}

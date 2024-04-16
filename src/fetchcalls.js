@@ -1,4 +1,4 @@
-function fetchToken(clientID, clientSecret, code) {
+function fetchAuthToken(clientID, clientSecret, code) {
   const redirect_uri = "http://localhost:3000/dashboard";
   const auth = {
     method: "POST",
@@ -86,4 +86,25 @@ function getTop5Songs(token){
   })
   .catch((err) => console.err("err",err))
 }
-export { fetchToken, getProfile, getPlaylists, getTop5Songs};
+
+function getGenres(token){
+  const auth = { 
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+
+  return fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds", auth)
+  .then((res) => {
+    if (!res.ok) {
+      console.error("Failed to fetch genres");
+    } else {
+      return res.json();
+    }
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => console.err("err",err))
+}
+
+export { fetchAuthToken, getProfile, getPlaylists, getTop5Songs, getGenres, };
