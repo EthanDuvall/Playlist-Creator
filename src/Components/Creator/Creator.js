@@ -101,8 +101,8 @@ function Creator({ authToken, profile }) {
           </>
         );
       });
-    }else{
-        return (<p>No genres Found</p>)
+    } else {
+      return <p>No genres Found</p>;
     }
   }
   function getFormData(e) {
@@ -156,9 +156,13 @@ function Creator({ authToken, profile }) {
     addSongsToPlaylist();
   }
   function getSearch(search) {
-    let filtered = genres.filter((genre) => genre === search.toLowerCase());
     setIsFiltered(true);
-    setFilterGenres(filtered);
+    setFilterGenres(
+      genres.filter((genre) => {
+        return genre.includes(search.toLowerCase());
+      })
+    );
+    console.log(filteredGenres);
   }
   return (
     <div className="create-form-holder">
@@ -198,7 +202,11 @@ function Creator({ authToken, profile }) {
             Favs
           </button>
           <div className="genre-holder">
-            {genres && <>{isFav ? displayFavs() : displayGenres()}</>}
+            {isFiltered ? (
+              displaySearch()
+            ) : (
+              <>{genres && <>{isFav ? displayFavs() : displayGenres()}</>}</>
+            )}
           </div>
           <button className="create-button" type="submit">
             Create!
