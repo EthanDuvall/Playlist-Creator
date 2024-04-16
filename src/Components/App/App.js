@@ -8,8 +8,8 @@ import "./App.css";
 import spotifyLogo from "../../Spotify_Logo_RGB_Green.png";
 
 function App() {
-  const clientID = process.env.API_ID;
-  const clientSecret = process.env.API_SECRET;
+  const clientID = process.env.REACT_APP_API_ID;
+  const clientSecret = process.env.REACT_APP_API_SECRET;
   const [authToken, setAuthToken] = useState(null);
   const [code, setCode] = useState(null)
   const [profile, setProfile] = useState({});
