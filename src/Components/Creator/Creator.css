@@ -5,11 +5,25 @@ form{
     border-radius: 2%;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+.name-input{
+    width: 200px;
+    font-size: 3vh;
 }
 .form-inputs{
     display: flex;
-    flex-direction: column;
+   flex-direction: column;
+   justify-content: space-around;
+   height: 400px;
+   align-items: center;
 }
+textarea{
+    resize: none;
+    width: 300px;
+    height: 200px;
+}
+
 .create-form-holder{
     display: flex;
     justify-content: space-evenly;
@@ -17,7 +31,49 @@ form{
 }
 .genre-holder{
     background-color:#682eaB;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 350px;
 }
 .search-holder{
     background-color: #682eaB;
+    height: 550px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 2%;
+}
+.genre{
+    width: 300px;
+    display: flex;
+    justify-content: space-between
+}
+.search{
+    width: 300px;
+    height: 30px;
+    text-align: center;
+}
+.fav-btns{
+    display: flex;
+    justify-content: space-evenly;
+}
+.fav-btns
+button{
+    width: 100px;
+    height: 40px;
+    background-color: #8b61ba;
+    border:none;
+    color:white;
+}
+.create-button{
+    font-size: 3vh;
+    width: 300px;
+    height: 100px;
+    background-color: #8b61ba;
+    border:none;
+    color:white;
+    border-radius: 2%;
 }

@@ -26,10 +26,10 @@ function Creator({ authToken, profile }) {
   }, [authToken]);
 
   function displayFavs() {
-    if (favs) {
+    if (favs.length>0) {
       return favs.map((fav) => {
         return (
-          <>
+          <div className="genre">
             <input type="radio" id={fav} name="genre" value={fav} required />
             <label htmlFor={fav}>{fav}</label>
             <button
@@ -41,7 +41,7 @@ function Creator({ authToken, profile }) {
             >
               -
             </button>
-          </>
+          </div>
         );
       });
     } else {
@@ -53,7 +53,7 @@ function Creator({ authToken, profile }) {
     if (genres) {
       return genres.map((genre) => {
         return (
-          <>
+          <div className="genre">
             <input
               type="radio"
               id={genre}
@@ -66,12 +66,14 @@ function Creator({ authToken, profile }) {
               className="add-to-fav-btn"
               onClick={(e) => {
                 e.preventDefault();
+                if(!favs.includes(genre)){
                 setFavs([...favs, genre]);
+                }
               }}
             >
               +
             </button>
-          </>
+          </div>
         );
       });
     }
@@ -80,7 +82,7 @@ function Creator({ authToken, profile }) {
     if (filteredGenres.length > 0) {
       return filteredGenres.map((genre) => {
         return (
-          <>
+          <div className="genre">
             <input
               type="radio"
               id={genre}
@@ -98,7 +100,7 @@ function Creator({ authToken, profile }) {
             >
               +
             </button>
-          </>
+          </div>
         );
       });
     } else {
@@ -172,19 +174,19 @@ function Creator({ authToken, profile }) {
         }}
       >
         <div className="form-inputs">
-          <label htmlFor="name">Playlist Name </label>
-          <input name="name" type="text" required />
-          <label htmlFor="desc">Playlist Description</label>
-          <textarea name="desc" required />
+          <input name="name" type="text" placeholder="Name" className="name-input" required />
+          <textarea name="desc" placeholder="Description"required />
         </div>
         <div className="search-holder">
           <input
+          className="search"
             type="search"
             placeholder="Search..."
             onChange={(e) => {
               getSearch(e.target.value);
             }}
           />
+          <div className="fav-btns">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -201,7 +203,8 @@ function Creator({ authToken, profile }) {
           >
             Favs
           </button>
-          <div className="genre-holder">
+          </div>
+          <div className="genre-holder" tabIndex={0}>
             {isFiltered ? (
               displaySearch()
             ) : (
