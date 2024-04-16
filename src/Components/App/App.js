@@ -12,6 +12,8 @@ function App() {
   const clientSecret = process.env.REACT_APP_API_SECRET;
   const [authToken, setAuthToken] = useState(null);
   const [code, setCode] = useState(null)
+  const [profile, setProfile] = useState({});
+
   return (
     <>
       <header>
@@ -29,6 +31,8 @@ function App() {
                 clientSecret={clientSecret}
                 authToken={authToken}
                 setAuthToken={setAuthToken}
+                profile={profile}
+                setProfile={setProfile}
                 
               />
             }
@@ -40,6 +44,7 @@ function App() {
                 authToken={authToken}
                 clientID={clientID}
                 clientSecret={clientSecret}
+                profile={profile}
               />
             }
           />

@@ -8,8 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate} from "react-router-dom";
 
-function Dashboard({ clientID, clientSecret, authToken, setAuthToken }) {
-  const [profile, setProfile] = useState({});
+function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,setProfile }) {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState({});
   const location = useLocation();
@@ -23,12 +22,14 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken }) {
           <div className="playlist">
             <Link to={playlist.external_urls.spotify}>
               <h4 className="playlist-name">{playlist.name}</h4>
+              {playlist.images &&(
               <img
                 className="playlist-cover"
                 src={playlist.images[0].url}
                 id={playlist.id}
                 alt={`cover of playlist: ${playlist.name}`}
               />
+              )}
             </Link>
           </div>
         );
