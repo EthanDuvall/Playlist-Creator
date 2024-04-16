@@ -123,6 +123,11 @@ h4 {
 }
 
 @media screen and (max-width: 768px) {
+    .dashboard{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
   .make-playlist-btn {
     width: 80%;
   }
@@ -148,28 +153,3 @@ h4 {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .make-playlist-btn {
-    width: 100%;
-  }
-
-  .profile-img {
-    width: 70%;
-  }
-
-  .display-name-container {
-    height: 15%;
-  }
-
-  h3 {
-    font-size: 2.5vh;
-  }
-
-  .playlist-holder {
-    width: 100%;
-  }
-
-  .top-songs-holder {
-    width: 100%;
-  }
-}
