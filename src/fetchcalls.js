@@ -1,5 +1,5 @@
 function fetchAuthToken(clientID, clientSecret, code) {
-  const redirect_uri = "https://playlist-creator-a08f8m753-ethans-projects-ff56cc66.vercel.app/dashboard";
+  const redirect_uri = "https://playlist-creator-git-main-ethans-projects-ff56cc66.vercel.app/dashboard";
   const auth = {
     method: "POST",
     headers: {
