@@ -1,16 +1,14 @@
 import "./Dashboard.css";
 import {
   getProfile,
-  fetchToken,
+  fetchAuthToken,
   getPlaylists,
   getTop5Songs,
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate} from "react-router-dom";
 
-function Dashboard({ clientID, clientSecret }) {
-  const [token, setToken] = useState(null);
-  const [profile, setProfile] = useState({});
+function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,setProfile }) {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState({});
   const location = useLocation();
@@ -24,12 +22,14 @@ function Dashboard({ clientID, clientSecret }) {
           <div className="playlist">
             <Link to={playlist.external_urls.spotify}>
               <h4 className="playlist-name">{playlist.name}</h4>
+              {playlist.images &&(
               <img
                 className="playlist-cover"
                 src={playlist.images[0].url}
                 id={playlist.id}
                 alt={`cover of playlist: ${playlist.name}`}
               />
+              )}
             </Link>
           </div>
         );
@@ -63,48 +63,59 @@ function Dashboard({ clientID, clientSecret }) {
     const code = searchParams.get("code");
 
     if (code) {
-      fetchToken(clientID, clientSecret, code)
+      fetchAuthToken(clientID, clientSecret, code)
         .then((fetchToken) => {
           if (fetchToken) {
-            setToken(fetchToken.access_token);
+            setAuthToken(fetchToken.access_token);
           }
         })
         .catch((error) => {
           console.error("Error:", error);
         });
     }
-  }, [clientID]);
+  }, []);
 
   useEffect(() => {
-    getProfile(token)
-      .then((fetchProfile) => {
-        if (fetchProfile) {
-          setProfile(fetchProfile);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-
-    getPlaylists(token)
-      .then((fetchPlaylists) => {
-        if (fetchPlaylists) {
-          setPlaylists(fetchPlaylists);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-    getTop5Songs(token)
-      .then((fetchSongs) => {
-        if (fetchSongs) {
-          setSongs(fetchSongs);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-  }, [token]);
+    if (authToken) {
+      getProfile(authToken)
+        .then((fetchProfile) => {
+          if (fetchProfile) {
+            setProfile(fetchProfile);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [authToken]);
+  
+  useEffect(() => {
+    if (authToken) {
+      getPlaylists(authToken)
+        .then((fetchPlaylists) => {
+          if (fetchPlaylists) {
+            setPlaylists(fetchPlaylists);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [authToken]);
+  
+  useEffect(() => {
+    if (authToken) {
+      getTop5Songs(authToken)
+        .then((fetchSongs) => {
+          if (fetchSongs) {
+            setSongs(fetchSongs);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [authToken]);
 
   return (
     <div className="dashboard">
