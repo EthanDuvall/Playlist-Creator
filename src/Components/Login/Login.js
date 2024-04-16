@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.css"
 
 function Login({ clientId }) {
-  const redirect_uri = 'http://localhost:3000/dashboard'; 
+  const redirect_uri = 'https://playlist-creator-a08f8m753-ethans-projects-ff56cc66.vercel.app/dashboard'; 
   const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public user-top-read';
 
   const handleLogin = () => {
