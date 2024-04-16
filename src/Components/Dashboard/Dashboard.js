@@ -73,37 +73,48 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
           console.error("Error:", error);
         });
     }
-  }, [clientID]);
+  }, []);
 
   useEffect(() => {
-    getProfile(authToken)
-      .then((fetchProfile) => {
-        if (fetchProfile) {
-          setProfile(fetchProfile);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-
-    getPlaylists(authToken)
-      .then((fetchPlaylists) => {
-        if (fetchPlaylists) {
-          setPlaylists(fetchPlaylists);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-    getTop5Songs(authToken)
-      .then((fetchSongs) => {
-        if (fetchSongs) {
-          setSongs(fetchSongs);
-        }
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
+    if (authToken) {
+      getProfile(authToken)
+        .then((fetchProfile) => {
+          if (fetchProfile) {
+            setProfile(fetchProfile);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [authToken]);
+  
+  useEffect(() => {
+    if (authToken) {
+      getPlaylists(authToken)
+        .then((fetchPlaylists) => {
+          if (fetchPlaylists) {
+            setPlaylists(fetchPlaylists);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [authToken]);
+  
+  useEffect(() => {
+    if (authToken) {
+      getTop5Songs(authToken)
+        .then((fetchSongs) => {
+          if (fetchSongs) {
+            setSongs(fetchSongs);
+          }
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
   }, [authToken]);
 
   return (

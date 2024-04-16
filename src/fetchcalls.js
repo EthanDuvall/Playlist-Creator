@@ -142,7 +142,7 @@ function getSongs(token, genre) {
     headers: { Authorization: `Bearer ${token}` },
   };
   return fetch(
-    `https://api.spotify.com/v1/recommendations?limit=25&seed_genres=${genre}`,
+    `https://api.spotify.com/v1/recommendations?limit=30&seed_genres=${genre}`,
     auth
   )
     .then((res) => {

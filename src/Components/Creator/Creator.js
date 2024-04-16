@@ -1,12 +1,18 @@
 import "./Creator.css";
 import { useEffect, useState } from "react";
-import { getGenres, makePlaylist,getSongs,addSongsToPlaylist } from "../../fetchcalls";
+import {
+  getGenres,
+  makePlaylist,
+  getSongs,
+  addSongsToPlaylist,
+} from "../../fetchcalls";
 
 function Creator({ authToken, profile }) {
   const [isFav, setIsFav] = useState(false);
   const [genres, setGenres] = useState([]);
   const [favs, setFavs] = useState([]);
-
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [filteredGenres, setFilterGenres] = useState([]);
   useEffect(() => {
     getGenres(authToken)
       .then((fetchGenre) => {
@@ -17,7 +23,7 @@ function Creator({ authToken, profile }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [authToken]);
 
   function displayFavs() {
     if (favs) {
@@ -38,6 +44,8 @@ function Creator({ authToken, profile }) {
           </>
         );
       });
+    } else {
+      return <p>You have no favs</p>;
     }
   }
 
@@ -68,7 +76,35 @@ function Creator({ authToken, profile }) {
       });
     }
   }
-
+  function displaySearch() {
+    if (filteredGenres.length > 0) {
+      return filteredGenres.map((genre) => {
+        return (
+          <>
+            <input
+              type="radio"
+              id={genre}
+              name="genre"
+              value={genre}
+              required
+            />
+            <label htmlFor={genre}>{genre}</label>
+            <button
+              className="add-to-fav-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                setFavs([...favs, genre]);
+              }}
+            >
+              +
+            </button>
+          </>
+        );
+      });
+    }else{
+        return (<p>No genres Found</p>)
+    }
+  }
   function getFormData(e) {
     const form = e.target;
     const formData = new FormData(form);
@@ -78,10 +114,10 @@ function Creator({ authToken, profile }) {
     });
     return playlistData;
   }
-  function seprateSongs(songs){
-    return(songs.map(song => {
-        return song.uri
-    }))
+  function seprateSongs(songs) {
+    return songs.map((song) => {
+      return song.uri;
+    });
   }
 
   function createPlaylist(e) {
@@ -91,10 +127,14 @@ function Creator({ authToken, profile }) {
     makePlaylist(profile.id, formData.name, formData.desc, authToken)
       .then((playlist) => {
         if (playlist) {
-          getSongs(authToken,formData.genre)
+          getSongs(authToken, formData.genre)
             .then((songs) => {
-              if (songs.tracks) {                
-                addSongsToPlaylist(playlist.id, authToken, seprateSongs(songs.tracks))
+              if (songs.tracks) {
+                addSongsToPlaylist(
+                  playlist.id,
+                  authToken,
+                  seprateSongs(songs.tracks)
+                )
                   .then((songsInPlaylist) => {
                     if (songsInPlaylist) {
                       console.log("yay!");
@@ -115,7 +155,11 @@ function Creator({ authToken, profile }) {
       });
     addSongsToPlaylist();
   }
-
+  function getSearch(search) {
+    let filtered = genres.filter((genre) => genre === search.toLowerCase());
+    setIsFiltered(true);
+    setFilterGenres(filtered);
+  }
   return (
     <div className="create-form-holder">
       <form
@@ -130,7 +174,13 @@ function Creator({ authToken, profile }) {
           <textarea name="desc" required />
         </div>
         <div className="search-holder">
-          <input type="search" placeholder="Search" />
+          <input
+            type="search"
+            placeholder="Search..."
+            onChange={(e) => {
+              getSearch(e.target.value);
+            }}
+          />
           <button
             onClick={(e) => {
               e.preventDefault();
