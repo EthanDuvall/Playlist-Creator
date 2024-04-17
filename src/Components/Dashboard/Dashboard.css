@@ -119,7 +119,7 @@ h4 {
   font-size: 2vh;
   margin: 0;
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width:1190px) {
     .dashboard{
         display: flex;
         flex-direction: column;
@@ -131,6 +131,9 @@ h4 {
     .profile
     .top-songs{
         width: 100%;
+    }
+    .top-songs-holder{
+        width: 300px;
     }
     .playlist{
         width: 80%;
