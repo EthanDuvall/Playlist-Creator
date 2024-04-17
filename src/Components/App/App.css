@@ -38,6 +38,7 @@ body {
   border: none;
   border-radius: 2%;
   font-size: larger;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
