@@ -57,7 +57,7 @@ h3 {
 .playlist-holder {
   background-color: #046c3c;
   overflow-x: auto;
-  height: 250px;
+  height: 310px;
   display: flex;
   width: 800px;
   border-radius: 1%;
@@ -74,6 +74,9 @@ h3 {
   margin-left: 5px;
   margin-right: 5px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .top-songs {
@@ -115,4 +118,22 @@ h3 {
 h4 {
   font-size: 2vh;
   margin: 0;
+}
+@media screen and (max-width:768px) {
+    .dashboard{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .playlist-holder{
+        width: 400px;
+    }
+    .profile
+    .top-songs{
+        width: 100%;
+    }
+    .playlist{
+        width: 80%;
+    }
+
 }
