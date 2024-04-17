@@ -47,7 +47,7 @@ function Dashboard({
   }
   function displayProfilePic() {
     let src;
-    if (profile) {
+    if (profile.images) {
       if (profile.images.length) {
         src = profile.images[1].url;
       } else {
@@ -55,7 +55,7 @@ function Dashboard({
       }
       return <img className="profile-img" src={src} alt="profile picture" />;
     }else{
-      return(<p>no image available</p>)
+      return(<p>profile not loaded yet</p>)
     }
   }
   function displayTopSongs() {
