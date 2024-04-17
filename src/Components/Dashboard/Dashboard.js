@@ -68,6 +68,7 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
         .then((fetchToken) => {
           if (fetchToken) {
             setAuthToken(fetchToken.access_token);
+            sessionStorage.setItem('token',fetchToken.access_token)
           }
         })
         .catch((error) => {

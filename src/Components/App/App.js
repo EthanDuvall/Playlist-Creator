@@ -11,9 +11,16 @@ function App() {
   const clientID = process.env.REACT_APP_API_ID;
   const clientSecret = process.env.REACT_APP_API_SECRET;
   const [authToken, setAuthToken] = useState(null);
-  const [code, setCode] = useState(null)
   const [profile, setProfile] = useState({});
 
+  function checkAuthToken(){
+    if(sessionStorage.getItem('token')){
+      setAuthToken(sessionStorage.getItem('token'))
+    }
+  }
+  useEffect(() =>{
+    checkAuthToken()
+  })
   return (
     <>
       <header>
