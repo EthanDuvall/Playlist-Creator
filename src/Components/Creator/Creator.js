@@ -6,6 +6,7 @@ import {
   getSongs,
   addSongsToPlaylist,
 } from "../../fetchcalls";
+import { useNavigate } from "react-router-dom";
 
 function Creator({ authToken, profile }) {
   const [isFav, setIsFav] = useState(false);
@@ -13,6 +14,8 @@ function Creator({ authToken, profile }) {
   const [favs, setFavs] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [filteredGenres, setFilterGenres] = useState([]);
+  const Navigate = useNavigate();
+
   useEffect(() => {
     getGenres(authToken)
       .then((fetchGenre) => {
@@ -71,7 +74,7 @@ function Creator({ authToken, profile }) {
                 }
               }}
             >
-              +
+              Fav
             </button>
           </div>
         );
@@ -98,7 +101,7 @@ function Creator({ authToken, profile }) {
                 setFavs([...favs, genre]);
               }}
             >
-              +
+              Fav
             </button>
           </div>
         );
@@ -139,7 +142,7 @@ function Creator({ authToken, profile }) {
                 )
                   .then((songsInPlaylist) => {
                     if (songsInPlaylist) {
-                      console.log("yay!");
+                      Navigate("/dashboard")
                     }
                   })
                   .catch((error) => {
@@ -174,14 +177,15 @@ function Creator({ authToken, profile }) {
         }}
       >
         <div className="form-inputs">
-          <input name="name" type="text" placeholder="Name" className="name-input" required />
-          <textarea name="desc" placeholder="Description"required />
+          <input name="name" type="text" placeholder="Input Playlist Name" className="name-input" required />
+          <textarea name="desc" placeholder="Input Playlist Description" required />
         </div>
         <div className="search-holder">
+            <h2>Select a genre</h2>
           <input
           className="search"
             type="search"
-            placeholder="Search..."
+            placeholder="Search Genres"
             onChange={(e) => {
               getSearch(e.target.value);
             }}

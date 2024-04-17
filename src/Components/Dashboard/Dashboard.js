@@ -19,8 +19,9 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
       return playlists.items.map((playlist) => {
         console.log(playlist);
         return (
+          <Link to={playlist.external_urls.spotify}>
           <div className="playlist">
-            <Link to={playlist.external_urls.spotify}>
+            
               <h4 className="playlist-name">{playlist.name}</h4>
               {playlist.images &&(
               <img
@@ -30,8 +31,8 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
                 alt={`cover of playlist: ${playlist.name}`}
               />
               )}
-            </Link>
           </div>
+          </Link>
         );
       });
     }
