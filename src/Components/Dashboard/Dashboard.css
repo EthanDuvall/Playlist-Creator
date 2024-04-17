@@ -54,6 +54,7 @@ h3 {
   grid-row: 2 / span 1;
   margin-left: 25px;
   text-align: left;
+  
 }
 .playlist-holder {
   background-color: #046c3c;
@@ -134,7 +135,7 @@ h4 {
     .make-playlist-btn{
         width: 100%;
     }
-    .playlist{
+    .playlists{
         width: 100%;
     }
     .profile

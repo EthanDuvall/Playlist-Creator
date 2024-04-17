@@ -71,22 +71,21 @@ function Dashboard({
   }
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const code = searchParams.get("code");
-
-    if (code) {
-      fetchAuthToken(clientID, clientSecret, code, setError)
-        .then((fetchToken) => {
-          if (fetchToken) {
-            setAuthToken(fetchToken.access_token);
-            sessionStorage.setItem("token", fetchToken.access_token);
-          }
-        })
-        .catch((error) => {
-          setError(error);
-        });
-    } else if (!authToken) {
-      setError(" Error no auth token Try Again");
+    if (!authToken) {
+      const searchParams = new URLSearchParams(location.search);
+      const code = searchParams.get("code");
+      if (code) {
+        fetchAuthToken(clientID, clientSecret, code, setError)
+          .then((fetchToken) => {
+            if (fetchToken) {
+              setAuthToken(fetchToken.access_token);
+              sessionStorage.setItem("token", fetchToken.access_token);
+            }
+          })
+          .catch((error) => {
+            setError(error);
+          });
+      }
     }
   }, []);
 
