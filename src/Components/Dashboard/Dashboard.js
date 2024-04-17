@@ -7,6 +7,7 @@ import {
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
 
 function Dashboard({
   clientID,
