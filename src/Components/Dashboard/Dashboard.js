@@ -7,7 +7,7 @@ import {
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function Dashboard({
   clientID,
@@ -46,19 +46,17 @@ function Dashboard({
     }
   }
   function displayProfilePic() {
-    let src 
-    if(profile.images.length > 0){
-      src = profile.images[1].url
+    let src;
+    if (profile) {
+      if (profile.images) {
+        src = profile.images[1].url;
+      } else {
+        src = pfp;
+      }
+      return <img className="profile-img" src={src} alt="profile picture" />;
     }else{
-      src = pfp
+      return(<p>no image available</p>)
     }
-    return (
-      <img
-        className="profile-img"
-        src={src}
-        alt="profile picture"
-      />
-    );
   }
   function displayTopSongs() {
     if (songs.items) {
