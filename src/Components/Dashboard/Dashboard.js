@@ -48,7 +48,7 @@ function Dashboard({
   function displayProfilePic() {
     let src;
     if (profile) {
-      if (profile.images) {
+      if (profile.images.length) {
         src = profile.images[1].url;
       } else {
         src = pfp;
