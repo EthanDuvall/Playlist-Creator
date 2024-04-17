@@ -6,9 +6,17 @@ import {
   getTop5Songs,
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
-import { useLocation, Link, useNavigate} from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 
-function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,setProfile }) {
+function Dashboard({
+  clientID,
+  clientSecret,
+  authToken,
+  setAuthToken,
+  profile,
+  setProfile,
+  setError,
+}) {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState({});
   const location = useLocation();
@@ -20,18 +28,17 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
         console.log(playlist);
         return (
           <Link to={playlist.external_urls.spotify}>
-          <div className="playlist">
-            
+            <div className="playlist">
               <h4 className="playlist-name">{playlist.name}</h4>
-              {playlist.images &&(
-              <img
-                className="playlist-cover"
-                src={playlist.images[0].url}
-                id={playlist.id}
-                alt={`cover of playlist: ${playlist.name}`}
-              />
+              {playlist.images && (
+                <img
+                  className="playlist-cover"
+                  src={playlist.images[0].url}
+                  id={playlist.id}
+                  alt={`cover of playlist: ${playlist.name}`}
+                />
               )}
-          </div>
+            </div>
           </Link>
         );
       });
@@ -43,20 +50,24 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
         console.log(song.album);
         return (
           <Link to={song.external_urls.spotify}>
-          <div className="top-5-song" id={song.id}>
-              <img className="song-cover" src={song.album.images[1].url} alt={song.album.name} />
+            <div className="top-5-song" id={song.id}>
+              <img
+                className="song-cover"
+                src={song.album.images[1].url}
+                alt={song.album.name}
+              />
               <div className="name-artist-holder">
-              <h4>{song.name}</h4>
-              <p>{song.album.artists[0].name}</p>
+                <h4>{song.name}</h4>
+                <p>{song.album.artists[0].name}</p>
               </div>
-          </div>
+            </div>
           </Link>
         );
       });
     }
   }
-  function routeToCreate(){
-    Navigate("/create")
+  function routeToCreate() {
+    Navigate("/create");
   }
 
   useEffect(() => {
@@ -64,32 +75,37 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
     const code = searchParams.get("code");
 
     if (code) {
-      fetchAuthToken(clientID, clientSecret, code)
+      fetchAuthToken(clientID, clientSecret, code, setError)
         .then((fetchToken) => {
           if (fetchToken) {
             setAuthToken(fetchToken.access_token);
+            sessionStorage.setItem("token", fetchToken.access_token);
           }
         })
         .catch((error) => {
-          console.error("Error:", error);
+          setError(error);
         });
+    } else if (!authToken) {
+      setError(" Error no auth token Try Again");
     }
   }, []);
 
   useEffect(() => {
     if (authToken) {
-      getProfile(authToken)
+      getProfile(authToken, setError)
         .then((fetchProfile) => {
           if (fetchProfile) {
             setProfile(fetchProfile);
           }
         })
         .catch((error) => {
-          console.error("error", error);
+          setError(error);
         });
+    } else {
+      setError("Error no Auth Token Try Again");
     }
   }, [authToken]);
-  
+
   useEffect(() => {
     if (authToken) {
       getPlaylists(authToken)
@@ -99,11 +115,13 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
           }
         })
         .catch((error) => {
-          console.error("error", error);
+          setError(error);
         });
+    } else {
+      setError("Error no Auth Token Try Again");
     }
   }, [authToken]);
-  
+
   useEffect(() => {
     if (authToken) {
       getTop5Songs(authToken)
@@ -113,7 +131,7 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
           }
         })
         .catch((error) => {
-          console.error("error", error);
+          setError(error);
         });
     }
   }, [authToken]);
@@ -130,7 +148,9 @@ function Dashboard({ clientID, clientSecret, authToken, setAuthToken,profile,set
         )}
         <div className="display-name-container">
           <h2 className="profile-name">{profile.display_name}</h2>
-          <button className="make-playlist-btn" onClick={routeToCreate}>Make Playlist</button>
+          <button className="make-playlist-btn" onClick={routeToCreate}>
+            Make Playlist
+          </button>
         </div>
       </div>
       <div className="playlists">
