@@ -100,8 +100,6 @@ function Dashboard({
         .catch((error) => {
           setError(error);
         });
-    } else {
-      setError("Error no Auth Token Try Again");
     }
   }, [authToken]);
 
@@ -116,9 +114,7 @@ function Dashboard({
         .catch((error) => {
           setError(error);
         });
-    } else {
-      setError("Error no Auth Token Try Again");
-    }
+    } 
   }, [authToken]);
 
   useEffect(() => {
