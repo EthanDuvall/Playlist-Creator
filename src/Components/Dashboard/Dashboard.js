@@ -7,7 +7,6 @@ import {
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function Dashboard({
   clientID,
@@ -44,6 +43,21 @@ function Dashboard({
         );
       });
     }
+  }
+  function displayProfilePic() {
+    let src 
+    if(profile.images.length > 0){
+      src = profile.images[1].url
+    }else{
+      src = pfp
+    }
+    return (
+      <img
+        className="profile-img"
+        src={src}
+        alt="profile picture"
+      />
+    );
   }
   function displayTopSongs() {
     if (songs.items) {
@@ -135,15 +149,7 @@ function Dashboard({
   return (
     <div className="dashboard">
       <div className="profile">
-        {profile.images[1].url ? (
-          <img
-            className="profile-img"
-            src={profile.images[1].url}
-            alt="profile picture"
-          />
-        ) : (
-          <img className="profile-img" src={pfp} alt="profile picture" />
-        )}
+        {displayProfilePic()}
         <div className="display-name-container">
           <h2 className="profile-name">{profile.display_name}</h2>
           <button className="make-playlist-btn" onClick={routeToCreate}>
