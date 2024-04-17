@@ -82,7 +82,7 @@ textarea {
   cursor: pointer;
 }
 .remove-fav-btn,
-add-to-fav-btn{
+.add-to-fav-btn{
     cursor: pointer;
 }
 @media screen and (max-width: 768px) {
