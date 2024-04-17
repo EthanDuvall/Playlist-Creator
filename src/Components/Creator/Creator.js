@@ -8,7 +8,7 @@ import {
 } from "../../fetchcalls";
 import { useNavigate } from "react-router-dom";
 
-function Creator({ authToken, profile }) {
+function Creator({ authToken,profile, setError }) {
   const [isFav, setIsFav] = useState(false);
   const [genres, setGenres] = useState([]);
   const [favs, setFavs] = useState([]);
@@ -17,19 +17,19 @@ function Creator({ authToken, profile }) {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    getGenres(authToken)
+    getGenres(authToken, setError)
       .then((fetchGenre) => {
         if (fetchGenre) {
           setGenres(fetchGenre.genres);
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setError(error);
       });
   }, [authToken]);
 
   function displayFavs() {
-    if (favs.length>0) {
+    if (favs.length > 0) {
       return favs.map((fav) => {
         return (
           <div className="genre">
@@ -69,8 +69,8 @@ function Creator({ authToken, profile }) {
               className="add-to-fav-btn"
               onClick={(e) => {
                 e.preventDefault();
-                if(!favs.includes(genre)){
-                setFavs([...favs, genre]);
+                if (!favs.includes(genre)) {
+                  setFavs([...favs, genre]);
                 }
               }}
             >
@@ -129,36 +129,36 @@ function Creator({ authToken, profile }) {
     e.preventDefault();
     const formData = getFormData(e);
     console.log(formData.name);
-    makePlaylist(profile.id, formData.name, formData.desc, authToken)
+    makePlaylist(profile.id, formData.name, formData.desc, authToken, setError)
       .then((playlist) => {
         if (playlist) {
-          getSongs(authToken, formData.genre)
+          getSongs(authToken, formData.genre, setError)
             .then((songs) => {
               if (songs.tracks) {
                 addSongsToPlaylist(
                   playlist.id,
                   authToken,
-                  seprateSongs(songs.tracks)
+                  seprateSongs(songs.tracks),
+                  setError
                 )
                   .then((songsInPlaylist) => {
                     if (songsInPlaylist) {
-                      Navigate("/dashboard")
+                      Navigate("/dashboard");
                     }
                   })
                   .catch((error) => {
-                    console.error("Error:", error);
+                    setError(error);
                   });
               }
             })
             .catch((error) => {
-              console.error("Error:", error);
+              setError(error);
             });
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setError(error);
       });
-    addSongsToPlaylist();
   }
   function getSearch(search) {
     setIsFiltered(true);
@@ -177,13 +177,23 @@ function Creator({ authToken, profile }) {
         }}
       >
         <div className="form-inputs">
-          <input name="name" type="text" placeholder="Input Playlist Name" className="name-input" required />
-          <textarea name="desc" placeholder="Input Playlist Description" required />
+          <input
+            name="name"
+            type="text"
+            placeholder="Input Playlist Name"
+            className="name-input"
+            required
+          />
+          <textarea
+            name="desc"
+            placeholder="Input Playlist Description"
+            required
+          />
         </div>
         <div className="search-holder">
-            <h2>Select a genre</h2>
+          <h2>Select a genre</h2>
           <input
-          className="search"
+            className="search"
             type="search"
             placeholder="Search Genres"
             onChange={(e) => {
@@ -191,22 +201,22 @@ function Creator({ authToken, profile }) {
             }}
           />
           <div className="fav-btns">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsFav(false);
-            }}
-          >
-            All
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsFav(true);
-            }}
-          >
-            Favs
-          </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsFav(false);
+              }}
+            >
+              All
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsFav(true);
+              }}
+            >
+              Favs
+            </button>
           </div>
           <div className="genre-holder" tabIndex={0}>
             {isFiltered ? (

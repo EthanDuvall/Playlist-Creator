@@ -1,0 +1,15 @@
+.error-tag {
+  color: white;
+  font-size: 10vh;
+  text-align: center;
+}
+.error-btn {
+  color: white;
+  background-color: #1ab26b;
+  height: 200px;
+  color: white;
+  width: 300px;
+  border-radius: 2%;
+  font-size: 5vh;
+  margin-left: 500px;
+}

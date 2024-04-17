@@ -1,4 +1,5 @@
-function fetchAuthToken(clientID, clientSecret, code) {
+
+function fetchAuthToken(clientID, clientSecret, code, setError) {
   const redirect_uri = "https://playlist-creator-git-main-ethans-projects-ff56cc66.vercel.app/dashboard";
   const auth = {
     method: "POST",
@@ -16,7 +17,7 @@ function fetchAuthToken(clientID, clientSecret, code) {
   return fetch("https://accounts.spotify.com/api/token", auth)
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch Token");
+        setError("Failed to fetch Token");
       } else {
         return res.json();
       }
@@ -24,10 +25,10 @@ function fetchAuthToken(clientID, clientSecret, code) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => setError(err));
 }
 
-function getProfile(token) {
+function getProfile(token, setError) {
   const auth = {
     method: "GET",
     headers: {
@@ -38,7 +39,7 @@ function getProfile(token) {
   return fetch("https://api.spotify.com/v1/me", auth)
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch User");
+        setError("Failed to fetch User");
       } else {
         return res.json();
       }
@@ -46,10 +47,10 @@ function getProfile(token) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => setError(err));
 }
 
-function getPlaylists(token) {
+function getPlaylists(token,setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -57,7 +58,7 @@ function getPlaylists(token) {
   return fetch("https://api.spotify.com/v1/me/playlists", auth)
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch Playlist");
+        setError("Failed to fetch Playlist");
       } else {
         return res.json();
       }
@@ -65,9 +66,9 @@ function getPlaylists(token) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => setError(err));
 }
-function getTop5Songs(token) {
+function getTop5Songs(token,setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -79,7 +80,7 @@ function getTop5Songs(token) {
   )
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch Playlist");
+        setError("Failed to fetch Playlist");
       } else {
         return res.json();
       }
@@ -87,10 +88,10 @@ function getTop5Songs(token) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.err("err", err));
+    .catch((err) => setError(err));
 }
 
-function getGenres(token) {
+function getGenres(token,setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -102,7 +103,7 @@ function getGenres(token) {
   )
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to fetch genres");
+        setError("Failed to fetch genres");
       } else {
         return res.json();
       }
@@ -110,10 +111,10 @@ function getGenres(token) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.err("err", err));
+    .catch((err) => setError(err));
 }
 
-function makePlaylist(user_id, name, desc, token) {
+function makePlaylist(user_id, name, desc, token,setError) {
   const auth = {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -126,7 +127,7 @@ function makePlaylist(user_id, name, desc, token) {
   return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, auth)
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to make Playlist");
+        setError("Failed to make Playlist");
       } else {
         return res.json();
       }
@@ -134,9 +135,9 @@ function makePlaylist(user_id, name, desc, token) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.err("err", err));
+    .catch((err) => setError(err));
 }
-function getSongs(token, genre) {
+function getSongs(token, genre,setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -147,7 +148,7 @@ function getSongs(token, genre) {
   )
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to get Genre Songs");
+        setError("Failed to get Genre Songs");
       } else {
         return res.json();
       }
@@ -155,9 +156,9 @@ function getSongs(token, genre) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.err("err", err));
+    .catch((err) => setError (err));
 }
-function addSongsToPlaylist(playlist_id, token, songs) {
+function addSongsToPlaylist(playlist_id, token, songs,setError) {
   const auth = {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -172,7 +173,7 @@ function addSongsToPlaylist(playlist_id, token, songs) {
   )
     .then((res) => {
       if (!res.ok) {
-        console.error("Failed to add songs to playlist");
+        setError("Failed to add songs to playlist");
       } else {
         return res.json();
       }
@@ -180,7 +181,7 @@ function addSongsToPlaylist(playlist_id, token, songs) {
     .then((data) => {
       return data;
     })
-    .catch((err) => console.err("err", err));
+    .catch((err) => setError(err));
 }
 
 export {
