@@ -7,6 +7,7 @@ import {
 } from "../../fetchcalls";
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function Dashboard({
   clientID,
@@ -114,7 +115,7 @@ function Dashboard({
         .catch((error) => {
           setError(error);
         });
-    } 
+    }
   }, [authToken]);
 
   useEffect(() => {
@@ -134,12 +135,14 @@ function Dashboard({
   return (
     <div className="dashboard">
       <div className="profile">
-        {profile.images && (
+        {profile.images[1].url ? (
           <img
             className="profile-img"
             src={profile.images[1].url}
             alt="profile picture"
           />
+        ) : (
+          <img className="profile-img" src={pfp} alt="profile picture" />
         )}
         <div className="display-name-container">
           <h2 className="profile-name">{profile.display_name}</h2>
