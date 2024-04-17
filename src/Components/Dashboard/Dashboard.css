@@ -133,8 +133,8 @@ h4 {
     .make-playlist-btn{
         width: 100%;
     }
-    .playlist-holder{
-        width: 400px;
+    .playlist{
+        width: 100%;
     }
     .profile
     .top-songs{
