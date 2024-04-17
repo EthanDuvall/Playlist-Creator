@@ -69,6 +69,7 @@ textarea {
   background-color: #8b61ba;
   border: none;
   color: white;
+  cursor: pointer;
 }
 .create-button {
   font-size: 3vh;
@@ -78,6 +79,11 @@ textarea {
   border: none;
   color: white;
   border-radius: 2%;
+  cursor: pointer;
+}
+.remove-fav-btn,
+add-to-fav-btn{
+    cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   form {

@@ -9,6 +9,7 @@
   width: 300px;
   border-radius: 2%;
   font-size: 2vh;
+  cursor: pointer;
 }
 a {
   text-decoration: none;
@@ -80,6 +81,7 @@ h3 {
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
+  cursor: pointer;
 }
 
 .top-songs {
@@ -106,6 +108,7 @@ h3 {
 .top-5-song {
   display: flex;
   margin-left: 20px;
+  cursor: pointer;
 }
 .song-cover {
   width: 100px;
@@ -122,6 +125,7 @@ h4 {
   font-size: 2vh;
   margin: 0;
 }
+
 @media screen and (max-width:1190px) {
     .dashboard{
         display: flex;
