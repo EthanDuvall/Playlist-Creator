@@ -396,4 +396,97 @@ describe("Playlist maker tests", () => {
         "https://i.scdn.co/image/ab67616d00001e02502345ddf02b0fe85ad15830"
       );
   });
+  it("can favorite a genre", () => {
+    cy.intercept(
+      "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+      {
+        method: "GET",
+        statusCode: 200,
+        body: {
+          genres: ["pop", "rock", "alt", "emo", "rap"],
+        },
+      }
+    );
+    cy.get(".make-playlist-btn").click();
+    cy.get(".genre-holder").children().should("have.length", 5);
+
+    cy.get(".add-to-fav-btn").first().click();
+    cy.get(".add-to-fav-btn").last().click();
+
+    cy.get(".fav-btns").children().last().click();
+    cy.get(".genre-holder").children().should("have.length", 2);
+
+    cy.get(".genre-holder").children().first().contains("pop");
+    cy.get(".genre-holder").children().last().contains("rap");
+
+    cy.get(".remove-fav-btn").first().click();
+
+    cy.get(".genre-holder").children().should("have.length", 1);
+    cy.get(".genre-holder").children().first().contains("rap");
+  });
+  it("can search genre", () => {
+    cy.intercept(
+      "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+      {
+        method: "GET",
+        statusCode: 200,
+        body: {
+          genres: ["pop", "rock", "alt", "emo", "rap"],
+        },
+      }
+    );
+    cy.get(".make-playlist-btn").click();
+    cy.get(".search").type("ALT");
+    cy.get(".genre-holder").children().should("have.length", 1);
+    cy.get(".genre-holder").children().first().contains("alt");
+  });
+  it("can create a playlist", () => {
+    cy.intercept(
+      "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+      {
+        method: "GET",
+        statusCode: 200,
+        body: {
+          genres: ["pop", "rock", "alt", "emo", "rap"],
+        },
+      }
+    );
+    cy.get(".make-playlist-btn").click();
+
+    cy.get("form").get('input[name="name"]').type("Playlist Testing");
+    cy.get("form").get("textarea").type("Playlist Testing DESC");
+    cy.get("form").get('input[name="genre"]').first().click();
+    cy.intercept(
+      "https://api.spotify.com/v1/users/FAKEIDPLACEHOLDERTEST/playlists",
+      {
+        method: "POST",
+        statusCode: 200,
+        body: {},
+      }
+    );
+    cy.intercept(
+      "https://api.spotify.com/v1/recommendations?limit=30&seed_genres=pop",
+      {
+        method:"Get",
+        statusCode:200,
+        body:{
+          tracks:[
+            {href:"testinigWOMPWOMP"},
+            {href:"testinigWOMPWOMP"},
+            {href:"testinigWOMPWOMP"}
+          ]
+        }
+      }
+    )
+    cy.intercept("https://api.spotify.com/v1/playlists/undefined/tracks",
+    {
+      method:"POST",
+      statusCode:200,
+      body:{
+        snapshot_id:"abc"
+      }
+    })
+    cy.get(".create-button").click();
+    cy.url().should('eq',"https://playlist-creator.vercel.app/dashboard")
+  });
 });

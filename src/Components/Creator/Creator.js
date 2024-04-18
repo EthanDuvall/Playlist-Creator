@@ -8,7 +8,7 @@ import {
 } from "../../fetchcalls";
 import { useNavigate } from "react-router-dom";
 
-function Creator({ authToken,profile, setError }) {
+function Creator({ authToken, profile, setError }) {
   const [isFav, setIsFav] = useState(false);
   const [genres, setGenres] = useState([]);
   const [favs, setFavs] = useState([]);
