@@ -1,5 +1,6 @@
 import "./Creator.css";
 import { useEffect, useState } from "react";
+import { PropTypes } from "prop-types";
 import {
   getGenres,
   makePlaylist,
@@ -27,7 +28,12 @@ function Creator({ authToken, profile, setError }) {
         setError(error);
       });
   }, [authToken]);
-
+  function checkColor(genre){
+    if(favs.includes(genre)){
+      return ("red")
+    }
+    return("white")
+  }
   function displayFavs() {
     if (favs.length > 0) {
       return favs.map((fav) => {
@@ -72,7 +78,11 @@ function Creator({ authToken, profile, setError }) {
                 if (!favs.includes(genre)) {
                   setFavs([...favs, genre]);
                 }
+               
+
               }}
+              style={{color:checkColor(genre)}}
+
             >
               Fav
             </button>
@@ -98,10 +108,14 @@ function Creator({ authToken, profile, setError }) {
               className="add-to-fav-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setFavs([...favs, genre]);
+                if (!favs.includes(genre)) {
+                  setFavs([...favs, genre]);
+                }
+                
               }}
+              style={{color:checkColor(genre)}}
             >
-              Fav
+              ♥
             </button>
           </div>
         );
@@ -177,6 +191,7 @@ function Creator({ authToken, profile, setError }) {
         }}
       >
         <div className="form-inputs">
+          <h2>Create A Playlist!</h2>
           <input
             name="name"
             type="text"
@@ -235,3 +250,9 @@ function Creator({ authToken, profile, setError }) {
 }
 
 export default Creator;
+
+Creator.propTypes ={
+  authToken: PropTypes.string.isRequired,
+  profile:PropTypes.object.isRequired,
+  setError:PropTypes.func.isRequired
+}

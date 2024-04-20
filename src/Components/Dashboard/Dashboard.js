@@ -5,6 +5,8 @@ import {
   getPlaylists,
   getTop5Songs,
 } from "../../fetchcalls";
+import { PropTypes } from "prop-types";
+
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
@@ -171,3 +173,13 @@ function Dashboard({
 }
 
 export default Dashboard;
+
+Dashboard.propTypes ={
+  clientID:PropTypes.string.isRequired,
+  clientSecret:PropTypes.string.isRequired,
+  authToken:PropTypes.string.isRequired,
+  setAuthToken:PropTypes.func.isRequired,
+  profile:PropTypes.object.isRequired,
+  setProfile:PropTypes.func.isRequired,
+  setError:PropTypes.func.isRequired,
+}
