@@ -19,7 +19,7 @@ Additional enhancements could include:
 - Allowing the user to remove songs from the playlist on the app
 - Allowing  the user to add a image to a playlist
 - Adding a feautre that allows the user to make a podcast playlist insted
-- 
+
 ## Screenshots
 ![image](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/6bcf09e4-0084-4a04-a521-23ce2ab2f0ce)
 
