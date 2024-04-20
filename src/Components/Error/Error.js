@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./Error.css";
 import { useNavigate } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
 function Error({ error }) {
   const navigate = useNavigate();
@@ -15,3 +16,7 @@ function Error({ error }) {
 }
 
 export default Error;
+
+Error.propTypes = {
+  error:PropTypes.string.isRequired
+}

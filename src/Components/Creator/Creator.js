@@ -1,5 +1,6 @@
 import "./Creator.css";
 import { useEffect, useState } from "react";
+import { PropTypes } from "prop-types";
 import {
   getGenres,
   makePlaylist,
@@ -9,7 +10,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Creator({ authToken, profile, setError }) {
-  const [color, setColor] = useState("white")
   const [isFav, setIsFav] = useState(false);
   const [genres, setGenres] = useState([]);
   const [favs, setFavs] = useState([]);
@@ -250,3 +250,9 @@ function Creator({ authToken, profile, setError }) {
 }
 
 export default Creator;
+
+Creator.propTypes ={
+  authToken: PropTypes.string.isRequired,
+  profile:PropTypes.object.isRequired,
+  setError:PropTypes.func.isRequired
+}

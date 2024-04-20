@@ -1,5 +1,6 @@
 import React from "react";
 import "./Login.css"
+import { PropTypes } from "prop-types";
 
 function Login({ clientId }) {
   const redirect_uri = 'https://playlist-creator.vercel.app/dashboard'; 
@@ -17,3 +18,7 @@ function Login({ clientId }) {
 }
 
 export default Login;
+
+Login.propTypes = {
+  clientId:PropTypes.string
+}
