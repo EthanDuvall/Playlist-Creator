@@ -84,7 +84,7 @@ function Creator({ authToken, profile, setError }) {
               style={{color:checkColor(genre)}}
 
             >
-              Fav
+              ♥
             </button>
           </div>
         );
