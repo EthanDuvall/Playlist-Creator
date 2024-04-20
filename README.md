@@ -25,7 +25,7 @@ Additional enhancements could include:
 
 
 ## Preview 
-![video](./Screen%20Recording%202024-04-20%20at%2012.37.26%20AM.mov)
+
 
 
 ## Set Up
