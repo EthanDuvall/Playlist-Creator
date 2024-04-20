@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Creator({ authToken, profile, setError }) {
+  const [color, setColor] = useState("white")
   const [isFav, setIsFav] = useState(false);
   const [genres, setGenres] = useState([]);
   const [favs, setFavs] = useState([]);
@@ -27,7 +28,12 @@ function Creator({ authToken, profile, setError }) {
         setError(error);
       });
   }, [authToken]);
-
+  function checkColor(genre){
+    if(favs.includes(genre)){
+      return ("red")
+    }
+    return("white")
+  }
   function displayFavs() {
     if (favs.length > 0) {
       return favs.map((fav) => {
@@ -72,7 +78,11 @@ function Creator({ authToken, profile, setError }) {
                 if (!favs.includes(genre)) {
                   setFavs([...favs, genre]);
                 }
+               
+
               }}
+              style={{color:checkColor(genre)}}
+
             >
               Fav
             </button>
@@ -98,10 +108,14 @@ function Creator({ authToken, profile, setError }) {
               className="add-to-fav-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setFavs([...favs, genre]);
+                if (!favs.includes(genre)) {
+                  setFavs([...favs, genre]);
+                }
+                
               }}
+              style={{color:checkColor(genre)}}
             >
-              Fav
+              ♥
             </button>
           </div>
         );

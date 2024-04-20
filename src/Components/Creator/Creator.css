@@ -81,6 +81,7 @@ textarea {
   border-radius: 2%;
   cursor: pointer;
 }
+
 .remove-fav-btn,
 .add-to-fav-btn{
     cursor: pointer;
