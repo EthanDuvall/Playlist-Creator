@@ -177,6 +177,7 @@ function Creator({ authToken, profile, setError }) {
         }}
       >
         <div className="form-inputs">
+          <h2>Create A Playlist!</h2>
           <input
             name="name"
             type="text"
