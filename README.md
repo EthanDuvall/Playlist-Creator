@@ -24,8 +24,8 @@ Additional enhancements could include:
 ![image](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/6bcf09e4-0084-4a04-a521-23ce2ab2f0ce)
 
 
-## Gif 
-
+## Preview 
+![video](./Screen%20Recording%202024-04-20%20at%2012.37.26%20AM.mov)
 
 
 ## Set Up
