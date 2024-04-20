@@ -85,7 +85,7 @@ textarea {
 .remove-fav-btn,
 .add-to-fav-btn{
     cursor: pointer;
-    background-color: none;
+    background: none;
     border:none;
     font-size: 3vh;
 }

@@ -47,6 +47,7 @@ function Creator({ authToken, profile, setError }) {
                 e.preventDefault();
                 setFavs(favs.filter((selectedFav) => selectedFav !== fav));
               }}
+              style={{color:"white"}}
             >
               -
             </button>
@@ -77,6 +78,8 @@ function Creator({ authToken, profile, setError }) {
                 e.preventDefault();
                 if (!favs.includes(genre)) {
                   setFavs([...favs, genre]);
+                }else{
+                  setFavs(favs.filter((selectedFav) => selectedFav !== genre))
                 }
                
 
@@ -110,6 +113,8 @@ function Creator({ authToken, profile, setError }) {
                 e.preventDefault();
                 if (!favs.includes(genre)) {
                   setFavs([...favs, genre]);
+                }else{
+                  setFavs(favs.filter((selectedFav) => selectedFav !== genre))
                 }
                 
               }}
