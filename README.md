@@ -25,7 +25,9 @@ Additional enhancements could include:
 
 
 ## Preview 
+![animated 8](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/07f9508e-1c86-47b2-9b37-941afa8fd9be)
 
+![animated 7](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/879cb257-02bc-485e-9018-d5fc9648699e)
 
 
 ## Set Up
