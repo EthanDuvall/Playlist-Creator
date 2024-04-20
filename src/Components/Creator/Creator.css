@@ -1,7 +1,7 @@
 form {
   background-color: #046c3c;
   height: 650px;
-  width: 1000px;
+  width: 60%;
   border-radius: 2%;
   display: flex;
   justify-content: space-around;
@@ -85,6 +85,9 @@ textarea {
 .remove-fav-btn,
 .add-to-fav-btn{
     cursor: pointer;
+    background-color: none;
+    border:none;
+    font-size: 3vh;
 }
 @media screen and (max-width: 768px) {
   form {
