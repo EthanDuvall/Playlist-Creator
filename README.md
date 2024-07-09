@@ -31,10 +31,9 @@ Additional enhancements could include:
 
 
 ## Set Up
-- This appliction only runs on the deployed linked due to how spotifys api works [Here](https://playlist-creator.vercel.app)
-- To login you can either email your spotify email at Eduvall9405@gmail.com
-- or Use this account here  User : 317kokm7acrob366l4tvc2gnytw4 Pass : PlaylistCreator-Test
-- This is the only way to use the app until spotify checks and allows for all users
+-This application cannot be run localy please use the deployed link
+-Simply click log in and it will take you to the spotify u-auth page to log in and should redirect you back to the page once logged in 
+
 
 ## Test Driven Development
 - Clone Down the repository
