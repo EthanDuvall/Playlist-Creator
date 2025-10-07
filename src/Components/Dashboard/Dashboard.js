@@ -4,12 +4,12 @@ import {
   fetchAuthToken,
   getPlaylists,
   getTop5Songs,
-} from "../../fetchcalls";
+} from "../../util/fetchcalls";
 import { PropTypes } from "prop-types";
 
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+import pfp from "../../util/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function Dashboard({
   clientID,
