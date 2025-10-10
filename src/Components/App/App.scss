@@ -54,3 +54,28 @@ main{
     cursor: pointer;
   }
 }
+
+.nav-links{
+  display: flex;
+  align-items: center;
+  button{
+    background-color: transparent;
+    border: none;
+    color:$text-dark;
+    font-size: 4vh;
+    &:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  .nav-link{
+    margin-right: 1vh;
+    padding-right: 2vh;
+    border-right: solid 3px $text-dark;
+  }
+  p{
+    margin: 0 2vh;
+    font-size: 3vh;
+  }
+}
+

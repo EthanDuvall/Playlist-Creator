@@ -12,7 +12,7 @@ function App() {
   const clientID = process.env.REACT_APP_API_ID;
   const clientSecret = process.env.REACT_APP_API_SECRET;
   const [authToken, setAuthToken] = useState(sessionStorage.getItem("token"));
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -27,11 +27,22 @@ function App() {
       <header>
         <h1>Playlist Builder</h1>
 
-        {profile && (
-          <div>
-            <button>Dashboard</button>
-            <p>|</p>
-            <button>Creator</button>
+        {profile.images && (
+          <div className="nav-links">
+            <button className="nav-link" onClick={() => navigate("/dashboard")}>
+              Dashboard
+            </button>
+            <button className="nav-link" onClick={() => navigate("/create")}>
+              Creator
+            </button>
+            <button
+              onClick={() => {
+                navigate("/");
+                window.location.reload(true);
+              }}
+            >
+              Logout
+            </button>
           </div>
         )}
         <img className="spotifyLogo" src={spotifyLogo} alt="spotify logo" />
