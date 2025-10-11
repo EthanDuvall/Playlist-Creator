@@ -30,6 +30,127 @@
     }
 
     .playlist-cover {
+        heigh: 30vh;
+        width: 30vh;
+        border-radius: 5px 5px;
+    }
+
+    .playlist-description {
+        text-overflow: clip;
+        overflow-y: scroll;
+        width: 30vh;
+        height: 30vh;
+        scrollbar-color: $quindary $quadary;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: $quadary;
+            border-radius: 20px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $quadary;
+            border-radius: 20px;
+            border: 2px solid $secondary;
+        }
+    }
+
+    button {
+        color: $text-dark;
+        background-color: $primary;
+        font-size: 4vh;
+        border: none;
+        padding: 2vh;
+        border-radius: 10px 10px;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.songs-container{
+    padding:2vh;
+    background-color:$quadary; 
+    width: 110vh;
+    border-radius: 20px 20px;
+    height: 66vh;
+    overflow-y: scroll;
+    scrollbar-color: $quindary $quadary;
+    display: flex;
+    flex-direction: column;
+    gap:2vh;
+    border-top: 2vh solid $quadary ;
+    border-bottom: 2vh solid $quadary ;
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: $quadary;
+            border-radius: 20px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $quadary;
+            border-radius: 20px;
+            border: 2px solid $secondary;
+        }
+        .track-item{
+            text-decoration: none;
+            color: $text-dark;
+            background-color: $quindary;;
+            display: flex;
+            align-items: center;
+            padding: 1vh;
+            border-radius: 10px 10px;
+            .track-cover{
+                height: 10vh;
+                width: 10vh;
+                border-radius: 5px 5px;
+                margin-right: 2vh;
+            }
+            h4{
+                font-size: 3vh;
+                margin:0;
+            }
+        }
+}
+@import "../../util/variables.scss";
+
+.new-play-holder {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.playlist-details {
+    background-color: $quadary;
+    width: 50vh;
+    height: 70vh;
+    border-radius: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh;
+    color: $text-light;
+
+    h2 {
+        font-size: 5vh;
+        margin-bottom: 1vh;
+    }
+
+    .playlist-track-count {
+        font-size: 3vh;
+        margin-top: 0;
+        margin-bottom: 1vh;
+    }
+
+    .playlist-cover {
         height: 30vh;
         width: 30vh;
         border-radius: 5px 5px;
