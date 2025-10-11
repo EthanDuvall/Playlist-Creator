@@ -113,14 +113,14 @@ function getGenres(token,setError) {
     .catch((err) => setError(err));
 }
 
-function makePlaylist(user_id, name, desc, token,setError) {
+function makePlaylist(user_id, name, desc, token,isPublic,setError) {
   const auth = {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify({
       name: name,
       description: desc,
-      public: true,
+      public: isPublic,
     }),
   };
   return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, auth)
@@ -136,13 +136,13 @@ function makePlaylist(user_id, name, desc, token,setError) {
     })
     .catch((err) => setError(err));
 }
-function getSongs(token, genre,setError) {
+function getSongs(token, genre,numSongs, setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   };
   return fetch(
-    `https://api.spotify.com/v1/recommendations?limit=30&seed_genres=${genre}`,
+    `https://api.spotify.com/v1/recommendations?limit=${numSongs}&seed_genres=${genre}`,
     auth
   )
     .then((res) => {
@@ -182,7 +182,27 @@ function addSongsToPlaylist(playlist_id, token, songs,setError) {
     })
     .catch((err) => setError(err));
 }
-
+function getPlaylistDetails(token, createdPlaylistId, setError) {
+  const auth = {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return fetch(
+    `https://api.spotify.com/v1/playlists/${createdPlaylistId}`,
+    auth
+  )
+    .then((res) => {
+      if (!res.ok) {
+        setError("Failed to get new playlist details");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => setError (err));
+}
 export {
   fetchAuthToken,
   getProfile,
@@ -192,4 +212,5 @@ export {
   makePlaylist,
   getSongs,
   addSongsToPlaylist,
+  getPlaylistDetails,
 };

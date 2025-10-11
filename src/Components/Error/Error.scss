@@ -1,0 +1,20 @@
+@import "../../util/variables.scss";
+
+
+.error-tag {
+  color: $text-light;
+  font-size: 10vh;
+  text-align: center;
+  margin-top:0;
+}
+.error-btn {
+  color: $text-dark;
+  border-radius: 20px 20px;
+  font-size: 5vh;
+  margin-left: 45%;
+  margin-top: 0;
+  cursor: pointer;
+  & :hover{
+    text-decoration: underline;
+  }
+}
