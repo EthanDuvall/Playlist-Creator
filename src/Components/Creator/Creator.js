@@ -16,7 +16,6 @@ function Creator({ authToken, profile, setError, setCreatedPlaylistId }) {
   const [filteredGenres, setFilterGenres] = useState([]);
   const Navigate = useNavigate();
 
-  /*
   useEffect(() => {
     getGenres(authToken, setError)
       .then((fetchGenre) => {
@@ -28,35 +27,6 @@ function Creator({ authToken, profile, setError, setCreatedPlaylistId }) {
         setError(error);
       });
   }, [authToken]);
-  */
-  useEffect(() => {
-    setGenres([
-      "pop",
-      "rock",
-      "alt",
-      "emo",
-      "rap",
-      "hi<t-hop",
-      "classical",
-      "jazz",
-      "country",
-      "blues",
-      "metal",
-      "punk",
-      "indie",
-      "disco",
-      "funk",
-      "soul",
-      "reggae",
-      "gospel",
-      "ska",
-      "techno",
-      "house",
-      "trance",
-      "dubstep",
-      "drum and bass",
-    ]);
-  }, []);
 
   function displayGenres() {
     if (genres) {
