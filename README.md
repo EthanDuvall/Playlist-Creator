@@ -10,7 +10,7 @@ An app to show you new music by a genre you like!
 ## Primary Technologies Used
 - React
 - HTML
-- CSS
+- SCSS
 - JavaScript
 - Cypress Testing
 
@@ -21,13 +21,11 @@ Additional enhancements could include:
 - Adding a feautre that allows the user to make a podcast playlist insted
 
 ## Screenshots
-![image](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/6bcf09e4-0084-4a04-a521-23ce2ab2f0ce)
+![image](/src/util/Spotify%20preview%20home.png)
+![image](/src/util/Spotify%20preveiw%20dash.png)
+![image](/src/util/Spotify%20preview%20creator.png)
+![image](/src/util/playlist%20preview.png)
 
-
-## Preview 
-![animated 8](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/07f9508e-1c86-47b2-9b37-941afa8fd9be)
-
-![animated 7](https://github.com/EthanDuvall/Playlist-Creator/assets/147420318/879cb257-02bc-485e-9018-d5fc9648699e)
 
 
 ## Set Up
