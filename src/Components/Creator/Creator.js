@@ -1,4 +1,4 @@
-import "./Creator.css";
+import "./Creator.scss";
 import { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 import {
@@ -9,14 +9,14 @@ import {
 } from "../../util/fetchcalls";
 import { useNavigate } from "react-router-dom";
 
-function Creator({ authToken, profile, setError }) {
-  const [isFav, setIsFav] = useState(false);
+function Creator({ authToken, profile, setError, setCreatedPlaylistId }) {
+  const [genre, setGenre] = useState("");
   const [genres, setGenres] = useState([]);
-  const [favs, setFavs] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [filteredGenres, setFilterGenres] = useState([]);
   const Navigate = useNavigate();
 
+  /*
   useEffect(() => {
     getGenres(authToken, setError)
       .then((fetchGenre) => {
@@ -28,68 +28,54 @@ function Creator({ authToken, profile, setError }) {
         setError(error);
       });
   }, [authToken]);
-  function checkColor(genre){
-    if(favs.includes(genre)){
-      return ("red")
-    }
-    return("white")
-  }
-  function displayFavs() {
-    if (favs.length > 0) {
-      return favs.map((fav) => {
-        return (
-          <div className="genre">
-            <input type="radio" id={fav} name="genre" value={fav} required />
-            <label htmlFor={fav}>{fav}</label>
-            <button
-              className="remove-fav-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                setFavs(favs.filter((selectedFav) => selectedFav !== fav));
-              }}
-              style={{color:"white"}}
-            >
-              -
-            </button>
-          </div>
-        );
-      });
-    } else {
-      return <p>You have no favs</p>;
-    }
-  }
+  */
+  useEffect(() => {
+    setGenres([
+      "pop",
+      "rock",
+      "alt",
+      "emo",
+      "rap",
+      "hi<t-hop",
+      "classical",
+      "jazz",
+      "country",
+      "blues",
+      "metal",
+      "punk",
+      "indie",
+      "disco",
+      "funk",
+      "soul",
+      "reggae",
+      "gospel",
+      "ska",
+      "techno",
+      "house",
+      "trance",
+      "dubstep",
+      "drum and bass",
+    ]);
+  }, []);
 
   function displayGenres() {
     if (genres) {
       return genres.map((genre) => {
         return (
-          <div className="genre">
+          <label className="genre" tabIndex={0} htmlFor={genre}>
             <input
+              onClick={() => {
+                setGenre(genre);
+              }}
               type="radio"
               id={genre}
               name="genre"
               value={genre}
               required
             />
-            <label htmlFor={genre}>{genre}</label>
-            <button
-              className="add-to-fav-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                if (!favs.includes(genre)) {
-                  setFavs([...favs, genre]);
-                }else{
-                  setFavs(favs.filter((selectedFav) => selectedFav !== genre))
-                }
-               
 
-              }}
-              style={{color:checkColor(genre)}}
-
-            >
-              ♥
-            </button>
-          </div>
+            {genre.charAt(0).toUpperCase() + genre.slice(1)}
+          </label>
         );
       });
     }
@@ -107,21 +93,6 @@ function Creator({ authToken, profile, setError }) {
               required
             />
             <label htmlFor={genre}>{genre}</label>
-            <button
-              className="add-to-fav-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                if (!favs.includes(genre)) {
-                  setFavs([...favs, genre]);
-                }else{
-                  setFavs(favs.filter((selectedFav) => selectedFav !== genre))
-                }
-                
-              }}
-              style={{color:checkColor(genre)}}
-            >
-              ♥
-            </button>
           </div>
         );
       });
@@ -138,7 +109,7 @@ function Creator({ authToken, profile, setError }) {
     });
     return playlistData;
   }
-  function seprateSongs(songs) {
+  function seperateSongs(songs) {
     return songs.map((song) => {
       return song.uri;
     });
@@ -147,22 +118,38 @@ function Creator({ authToken, profile, setError }) {
   function createPlaylist(e) {
     e.preventDefault();
     const formData = getFormData(e);
-    console.log(formData.name);
-    makePlaylist(profile.id, formData.name, formData.desc, authToken, setError)
+    if (!formData.isPublic) {
+      formData.isPublic = false;
+    }
+
+    makePlaylist(
+      profile.id,
+      formData.name,
+      formData.desc,
+      authToken,
+      formData.isPublic,
+      setError
+    )
       .then((playlist) => {
         if (playlist) {
-          getSongs(authToken, formData.genre, setError)
+          setCreatedPlaylistId(playlist.id);
+          getSongs(
+            authToken,
+            formData.genre,
+            Number(formData.numSongs),
+            setError
+          )
             .then((songs) => {
               if (songs.tracks) {
                 addSongsToPlaylist(
                   playlist.id,
                   authToken,
-                  seprateSongs(songs.tracks),
+                  seperateSongs(songs.tracks),
                   setError
                 )
                   .then((songsInPlaylist) => {
                     if (songsInPlaylist) {
-                      Navigate("/dashboard");
+                      Navigate("/playlist");
                     }
                   })
                   .catch((error) => {
@@ -186,7 +173,6 @@ function Creator({ authToken, profile, setError }) {
         return genre.includes(search.toLowerCase());
       })
     );
-    console.log(filteredGenres);
   }
   return (
     <div className="create-form-holder">
@@ -195,21 +181,6 @@ function Creator({ authToken, profile, setError }) {
           createPlaylist(e);
         }}
       >
-        <div className="form-inputs">
-          <h2>Create A Playlist!</h2>
-          <input
-            name="name"
-            type="text"
-            placeholder="Input Playlist Name"
-            className="name-input"
-            required
-          />
-          <textarea
-            name="desc"
-            placeholder="Input Playlist Description"
-            required
-          />
-        </div>
         <div className="search-holder">
           <h2>Select a genre</h2>
           <input
@@ -220,31 +191,54 @@ function Creator({ authToken, profile, setError }) {
               getSearch(e.target.value);
             }}
           />
-          <div className="fav-btns">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setIsFav(false);
-              }}
-            >
-              All
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setIsFav(true);
-              }}
-            >
-              Favs
-            </button>
-          </div>
           <div className="genre-holder" tabIndex={0}>
             {isFiltered ? (
               displaySearch()
             ) : (
-              <>{genres && <>{isFav ? displayFavs() : displayGenres()}</>}</>
+              <>{genres && <>{displayGenres()}</>}</>
             )}
           </div>
+        </div>
+        <div className="form-inputs">
+          <label>
+            Playlist Name:
+            <input
+              name="name"
+              type="text"
+              placeholder="Name"
+              className="name-input"
+              required
+            />
+          </label>
+          <label>
+            Number of Songs:
+            <input
+              type="number"
+              name="numSongs"
+              placeholder="1-100"
+              max={100}
+            />
+          </label>
+          <div className="extra-options">
+            <label className="switch">
+              Public :
+              <input name="isPublic" type="checkbox" value={true} />
+              <span className="slider round"></span>
+            </label>
+            <div className="genre-display-holder">
+              <span className="genre-display">
+                {genre.charAt(0).toUpperCase() + genre.slice(1) || "Genre"}
+              </span>
+            </div>
+          </div>
+          <label className="desc-label">
+            Playlist Description:
+            <textarea
+              name="desc"
+              placeholder="Input Playlist Description"
+              required
+            />
+          </label>
           <button className="create-button" type="submit">
             Create!
           </button>
@@ -256,8 +250,8 @@ function Creator({ authToken, profile, setError }) {
 
 export default Creator;
 
-Creator.propTypes ={
+Creator.propTypes = {
   authToken: PropTypes.string.isRequired,
-  profile:PropTypes.object.isRequired,
-  setError:PropTypes.func.isRequired
-}
+  profile: PropTypes.object.isRequired,
+  setError: PropTypes.func.isRequired,
+};

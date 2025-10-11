@@ -1,10 +1,13 @@
 @import "../../util/variables.scss";
+
 .dashboard {
   display: block;
 }
+
 .left-side {
   float: left;
 }
+
 .profile {
   .profile-img {
     width: 25vh;
@@ -12,6 +15,7 @@
     border-radius: 50%;
     object-fit: cover;
   }
+
   padding-top: 2vh;
   display: flex;
   align-items: center;
@@ -31,10 +35,12 @@
     margin-left: 2vh;
     margin-bottom: 2vh;
   }
+
   a {
     text-decoration: none;
     color: $text-dark;
   }
+
   .playlist-holder {
     background-color: $quadary;
     display: flex;
@@ -44,18 +50,22 @@
     width: 100vh;
     border-radius: 20px 20px;
     scrollbar-color: $quindary $quadary;
+
     &::-webkit-scrollbar {
       width: 8px;
     }
+
     &::-webkit-scrollbar-track {
       background: $quadary;
       border-radius: 20px;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: $quadary;
       border-radius: 20px;
       border: 2px solid $secondary;
     }
+
     .playlist {
       display: flex;
       flex-direction: column;
@@ -65,6 +75,7 @@
       background-color: $quindary;
       width: 25vh;
       height: 30vh;
+
       .playlist-cover {
         text-overflow: ellipsis;
         width: 20vh;
@@ -72,6 +83,7 @@
         border-radius: 10px 10px;
         margin-bottom: 1vh;
       }
+
       &:hover {
         cursor: pointer;
         background-color: darken($primary, 10%);
@@ -85,6 +97,7 @@
   margin-right: 5vh;
   float: right;
   gap: 3vh;
+
   h3 {
     text-align: center;
     color: $text-light;
@@ -92,10 +105,12 @@
     margin-top: 0;
     margin-bottom: 2vh;
   }
+
   a {
     text-decoration: none;
     color: $text-dark;
   }
+
   .top-songs-holder {
     overflow-y: scroll;
     padding-left: 1vh;
@@ -110,19 +125,23 @@
     flex-direction: column;
     align-items: center;
     scrollbar-color: $quindary $quadary;
+
     &::-webkit-scrollbar {
       width: 8px;
     }
+
     &::-webkit-scrollbar-track {
       background: $quadary;
       border-radius: 20px;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: $quadary;
       border-radius: 20px;
       border: 2px solid $secondary;
     }
   }
+
   .top-5-song {
     width: 50vh;
     display: flex;
@@ -130,17 +149,20 @@
     background-color: $quindary;
     margin-bottom: 3vh;
     border-radius: 10px 10px;
+
     .song-cover {
       width: 15vh;
       height: 15vh;
       border-radius: 10px 10px;
       margin-right: 2vh;
     }
+
     .name-artist-holder {
       marging-left: 2vh;
       text-align: left;
       font-size: 2vh;
     }
+
     &:hover {
       cursor: pointer;
       background-color: darken($primary, 10%);

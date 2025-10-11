@@ -5,6 +5,7 @@ import Login from "../Login/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import Creator from "../Creator/Creator";
 import Error from "../Error/Error";
+import NewPlaylist from "../NewPlaylist/NewPlaylist";
 import "./App.scss";
 import spotifyLogo from "../../util/Full_Logo_Black_RGB.svg";
 
@@ -14,6 +15,7 @@ function App() {
   const [authToken, setAuthToken] = useState(sessionStorage.getItem("token"));
   const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
+  const [createdPlaylistId, setCreatedPlaylistId] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,6 +92,20 @@ function App() {
                 clientSecret={clientSecret}
                 profile={profile}
                 setError={setError}
+                setCreatedPlaylistId={setCreatedPlaylistId}
+              />
+            }
+          />
+          <Route
+            path="/playlist/"
+            element={
+              <NewPlaylist
+                authToken={authToken}
+                clientID={clientID}
+                clientSecret={clientSecret}
+                profile={profile}
+                setError={setError}
+                createdPlaylistId={createdPlaylistId}
               />
             }
           />
