@@ -139,15 +139,18 @@
     padding: 2vh;
     color: $text-light;
     text-decoration: none;
+    text-align: center;
     h2 {
         font-size: 5vh;
         margin-bottom: 1vh;
+        text-decoration: none;
     }
 
     .playlist-track-count {
         font-size: 3vh;
         margin-top: 0;
         margin-bottom: 1vh;
+        text-decoration: none;
     }
 
     .playlist-cover {
@@ -157,6 +160,7 @@
     }
 
     .playlist-description {
+        text-decoration: none;
         text-overflow: clip;
         overflow-y: scroll;
         width: 30vh;
