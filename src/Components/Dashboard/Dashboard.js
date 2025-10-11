@@ -1,15 +1,15 @@
-import "./Dashboard.css";
+import "./Dashboard.scss";
 import {
   getProfile,
   fetchAuthToken,
   getPlaylists,
   getTop5Songs,
-} from "../../fetchcalls";
+} from "../../util/fetchcalls";
 import { PropTypes } from "prop-types";
 
 import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import pfp from "../../depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+import pfp from "../../util/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function Dashboard({
   clientID,
@@ -56,8 +56,8 @@ function Dashboard({
         src = pfp;
       }
       return <img className="profile-img" src={src} alt="profile picture" />;
-    }else{
-      return(<p>profile not loaded yet</p>)
+    } else {
+      return <p>profile not loaded yet</p>;
     }
   }
   function displayTopSongs() {
@@ -149,20 +149,17 @@ function Dashboard({
 
   return (
     <div className="dashboard">
-      <div className="profile">
-        {displayProfilePic()}
-        <div className="display-name-container">
+      <div className="left-side">
+        <div className="profile">
+          {displayProfilePic()}
           <h2 className="profile-name">{profile.display_name}</h2>
-          <button className="make-playlist-btn" onClick={routeToCreate}>
-            Make Playlist
-          </button>
         </div>
-      </div>
-      <div className="playlists">
-        <h3>Playlists</h3>
-        {playlists && (
-          <div className="playlist-holder">{displayPlaylist()}</div>
-        )}
+        <div className="playlists">
+          <h3>Playlists</h3>
+          {playlists && (
+            <div className="playlist-holder">{displayPlaylist()}</div>
+          )}
+        </div>
       </div>
       <div className="top-songs">
         <h3>Top 5 Songs</h3>
@@ -174,12 +171,12 @@ function Dashboard({
 
 export default Dashboard;
 
-Dashboard.propTypes ={
-  clientID:PropTypes.string.isRequired,
-  clientSecret:PropTypes.string.isRequired,
-  authToken:PropTypes.string.isRequired,
-  setAuthToken:PropTypes.func.isRequired,
-  profile:PropTypes.object.isRequired,
-  setProfile:PropTypes.func.isRequired,
-  setError:PropTypes.func.isRequired,
-}
+Dashboard.propTypes = {
+  clientID: PropTypes.string.isRequired,
+  clientSecret: PropTypes.string.isRequired,
+  authToken: PropTypes.string.isRequired,
+  setAuthToken: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  setProfile: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
+};

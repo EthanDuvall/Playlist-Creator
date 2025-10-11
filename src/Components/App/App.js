@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate,Link } from "react-router-dom";
+import { Route, Routes, useNavigate, Link } from "react-router-dom";
 import React from "react";
 import Login from "../Login/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import Creator from "../Creator/Creator";
 import Error from "../Error/Error";
-import "./App.css";
-import spotifyLogo from "../../Spotify_Logo_RGB_Green.png";
+import NewPlaylist from "../NewPlaylist/NewPlaylist";
+import "./App.scss";
+import spotifyLogo from "../../util/Full_Logo_Black_RGB.svg";
 
 function App() {
   const clientID = process.env.REACT_APP_API_ID;
@@ -14,25 +15,60 @@ function App() {
   const [authToken, setAuthToken] = useState(sessionStorage.getItem("token"));
   const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
+  const [createdPlaylistId, setCreatedPlaylistId] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(error){
-    navigate("/error");
+    if (error) {
+      navigate("/error");
     }
   }, [error]);
 
   return (
     <>
       <header>
-        <Link to="/dashboard">
-          <h1>Playlist Builder</h1>
-        </Link>
+        <h1>Playlist Builder</h1>
+
+        {profile.images && (
+          <div className="nav-links">
+            <button className="nav-link" onClick={() => navigate("/dashboard")}>
+              Dashboard
+            </button>
+            <button className="nav-link" onClick={() => navigate("/create")}>
+              Creator
+            </button>
+            <button
+              onClick={() => {
+                navigate("/");
+                window.location.reload(true);
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        )}
         <img className="spotifyLogo" src={spotifyLogo} alt="spotify logo" />
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Login clientId={clientID} />} />
+          <Route
+            path="/"
+            element={
+              <div className="welcome-container">
+                <div className="welcome-message">
+                  <h2>Welcome</h2>
+                  <p>
+                    This app allows you to create a playlist based on a genre of
+                    your liking. More features coming soon!
+                  </p>
+                </div>
+                <div className="login-container">
+                  <h2>Login to get started!</h2>
+                  <Login clientId={clientID} />
+                </div>
+              </div>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -56,6 +92,20 @@ function App() {
                 clientSecret={clientSecret}
                 profile={profile}
                 setError={setError}
+                setCreatedPlaylistId={setCreatedPlaylistId}
+              />
+            }
+          />
+          <Route
+            path="/playlist/"
+            element={
+              <NewPlaylist
+                authToken={authToken}
+                clientID={clientID}
+                clientSecret={clientSecret}
+                profile={profile}
+                setError={setError}
+                createdPlaylistId={createdPlaylistId}
               />
             }
           />
@@ -64,7 +114,9 @@ function App() {
             element={
               <>
                 <p className="error-tag">This page doesn't Exist</p>
-                <button className = "error-btn" onClick={() => navigate("/")}>Go home?</button>
+                <button className="error-btn" onClick={() => navigate("/")}>
+                  Go home?
+                </button>
               </>
             }
           />
