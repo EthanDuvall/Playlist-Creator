@@ -57,8 +57,7 @@ function NewPlaylist({ authToken, setError, createdPlaylistId }) {
         <>
           <div className="playlist-details">
             <Link
-              to={`/track/${item.track.id}`}
-              key={index}
+              to={playlistDetails.external_urls.spotify}
               className="track-item"
             >
               <img
