@@ -138,7 +138,7 @@
     align-items: center;
     padding: 2vh;
     color: $text-light;
-
+    text-decoration: none;
     h2 {
         font-size: 5vh;
         margin-bottom: 1vh;
@@ -160,7 +160,7 @@
         text-overflow: clip;
         overflow-y: scroll;
         width: 30vh;
-        height: 30vh;
+        height: 10vh;
         scrollbar-color: $quindary $quadary;
 
         &::-webkit-scrollbar {
