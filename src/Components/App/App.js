@@ -8,6 +8,7 @@ import Error from "../Error/Error";
 import NewPlaylist from "../NewPlaylist/NewPlaylist";
 import "./App.scss";
 import spotifyLogo from "../../util/Full_Logo_Black_RGB.svg";
+import pfp from "../../util/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 function App() {
   const clientID = process.env.REACT_APP_API_ID;
@@ -24,11 +25,33 @@ function App() {
     }
   }, [error]);
 
+  function displayProfilePic() {
+    let src;
+    if (profile.images) {
+      if (profile.images.length) {
+        src = profile.images[1].url;
+      } else {
+        src = pfp;
+      }
+      return <img className="profile-img" src={src} alt="profile picture" />;
+    } else {
+      return <p>profile not loaded yet</p>;
+    }
+  }
+
   return (
     <>
       <header>
-        <h1>Playlist Builder</h1>
-
+        <div className="profile">
+        {profile.display_name ? (
+          <>
+          {displayProfilePic()}
+          <h1>{profile.display_name}</h1>
+          </>
+        ) : (
+          <h1>Playlist Builder</h1>
+        )}
+        </div>
         {profile.images && (
           <div className="nav-links">
             <button className="nav-link" onClick={() => navigate("/dashboard")}>
