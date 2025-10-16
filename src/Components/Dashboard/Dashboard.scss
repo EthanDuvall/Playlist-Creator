@@ -30,25 +30,23 @@
 .playlists {
   color: $text-light;
   margin-left: 5vh;
-
   h3 {
-    font-size: 4vh;
+    font-size: 3vh;
     margin-left: 2vh;
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
   }
-
   a {
     text-decoration: none;
     color: $text-dark;
   }
-
   .playlist-holder {
     background-color: $quadary;
     display: flex;
     overflow-x: scroll;
     gap: 3vh;
-    padding: 3vh;
-    width: 100vh;
+    padding-top: 2vh;
+    padding-bottom: 1vh;
+    width: 140vh;
     border-radius: 20px 20px;
     scrollbar-color: $quindary $quadary;
     border-left: 2vh solid $quadary ;
@@ -69,19 +67,21 @@
     }
 
     .playlist {
+      font-size: 1.5vh;
+      text-overflow: ellipsis;
       display: flex;
       flex-direction: column;
       align-items: center;
       border-radius: 10px 10px;
       text-align: center;
       background-color: $quindary;
-      width: 25vh;
-      height: 30vh;
-
+      width: 20vh;
+      height:20vh;
+      justify-content: space-between;
       .playlist-cover {
         text-overflow: ellipsis;
-        width: 20vh;
-        height: 20vh;
+        width: 12vh;
+        height: 12vh;
         border-radius: 10px 10px;
         margin-bottom: 1vh;
       }
@@ -146,7 +146,7 @@
     }
   }
 
-  .top-5-song {
+  .top-3-song {
     width: 50vh;
     display: flex;
     align-items: center;

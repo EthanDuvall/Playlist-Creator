@@ -29,7 +29,7 @@ function App() {
     let src;
     if (profile.images) {
       if (profile.images.length) {
-        src = profile.images[1].url;
+        src = profile.images[0].url;
       } else {
         src = pfp;
       }
