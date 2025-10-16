@@ -90,8 +90,24 @@ function Dashboard({
     }
   }
 
-  function displayRecentSongs(){
-    
+  function displayRecentSongs() {
+    if (recentSongs.items) {
+      return recentSongs.items.map((song) => {
+        return (
+          <Link to={song.track.external_urls.spotify} target="_blank">
+            <div className="recent-song" id={song.id}>
+              <img
+                className="song-cover"
+                src={song.track.album.images[1].url}
+                alt={song.track.album.name}
+              />
+              <h4>{song.track.name}</h4>
+              <p>{song.track.album.artists[0].name}</p>
+            </div>
+          </Link>
+        );
+      });
+    }
   }
   /*
   useEffect(() => {
@@ -14037,13 +14053,11 @@ function Dashboard({
 
   return (
     <div className="dashboard">
-      <div className="left-side">
-        <div className="playlists">
-          <h3>Playlists</h3>
-          {playlists && (
-            <div className="playlist-holder">{displayPlaylist()}</div>
-          )}
-        </div>
+      <div className="playlists">
+        <h3>Playlists</h3>
+        {playlists && (
+          <div className="playlist-holder">{displayPlaylist()}</div>
+        )}
       </div>
       <div className="top-songs top3">
         <h3>Top 3 artists</h3>
@@ -14055,6 +14069,12 @@ function Dashboard({
         <h3>Top 3 Artsits</h3>
         {top3artists && (
           <div className="top-artists-holder">{displayTopArtists()}</div>
+        )}
+      </div>
+      <div className="recent">
+        <h3>Recently Played Songs</h3>
+        {recentSongs && (
+          <div className="recent-holder">{displayRecentSongs()}</div>
         )}
       </div>
     </div>
