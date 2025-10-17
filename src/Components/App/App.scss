@@ -12,19 +12,17 @@ header {
   h1 {
     font-size: 5vh;
   }
-
-  border-bottom: solid 6px $secondary;
 }
 
 .spotifyLogo {
-  height: 100px;
+  height: 11vh;
   margin-bottom: 2vh;
   margin-top: 2vh;
 }
 
 main {
   background-color: $secondary;
-  height: 86vh;
+  height:85vh;
 }
 
 .welcome-container {
