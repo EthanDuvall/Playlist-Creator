@@ -248,6 +248,27 @@ function getRecentSongs(token, setError) {
     .catch((err) => setError(err));
 }
 
+function getNewReleases(token,setError){
+   const auth = {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return fetch(
+    "https://api.spotify.com/v1/browse/new-releases?limit=5",
+    auth
+  )
+    .then((res) => {
+      if (!res.ok) {
+        setError("Failed to fetch New Songs");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => setError(err));
+}
 export {
   fetchAuthToken,
   getProfile,
@@ -260,4 +281,5 @@ export {
   getPlaylistDetails,
   getTop3artists,
   getRecentSongs,
+  getNewReleases
 };
