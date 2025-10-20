@@ -32,7 +32,7 @@ function NewPlaylist({ authToken, setError, createdPlaylistId }) {
       playlistDetails.tracks.items
     ) {
       return playlistDetails.tracks.items.map((item, index) => (
-        <Link to={`/track/${item.track.id}`} key={index} className="track-item">
+        <Link to={`/track/${item.track.id}`} key={index} className="track-item" target="_blank">
           <div key={index} className="track-item">
             <img
               src={item.track.album.images[0]?.url}
@@ -59,6 +59,7 @@ function NewPlaylist({ authToken, setError, createdPlaylistId }) {
             <Link
               to={playlistDetails.external_urls.spotify}
               className="track-item"
+              target="_blank"
             >
               <img
                 src={playlistDetails.images[0]?.url}

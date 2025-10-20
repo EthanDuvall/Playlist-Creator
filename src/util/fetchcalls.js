@@ -1,4 +1,4 @@
-function fetchAuthToken(clientID, clientSecret, code,  setError) {
+function fetchAuthToken(clientID, clientSecret, code, setError) {
   const redirect_uri = "https://playlist-creator.vercel.app/dashboard";
   const auth = {
     method: "POST",
@@ -49,7 +49,7 @@ function getProfile(token, setError) {
     .catch((err) => setError(err));
 }
 
-function getPlaylists(token,setError) {
+function getPlaylists(token, setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -67,14 +67,14 @@ function getPlaylists(token,setError) {
     })
     .catch((err) => setError(err));
 }
-function getTop5Songs(token,setError) {
+function getTop3Songs(token, setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   };
 
   return fetch(
-    "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5",
+    "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=3",
     auth
   )
     .then((res) => {
@@ -90,7 +90,7 @@ function getTop5Songs(token,setError) {
     .catch((err) => setError(err));
 }
 
-function getGenres(token,setError) {
+function getGenres(token, setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +113,7 @@ function getGenres(token,setError) {
     .catch((err) => setError(err));
 }
 
-function makePlaylist(user_id, name, desc, token,isPublic,setError) {
+function makePlaylist(user_id, name, desc, token, isPublic, setError) {
   const auth = {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -136,7 +136,7 @@ function makePlaylist(user_id, name, desc, token,isPublic,setError) {
     })
     .catch((err) => setError(err));
 }
-function getSongs(token, genre,numSongs, setError) {
+function getSongs(token, genre, numSongs, setError) {
   const auth = {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -155,9 +155,9 @@ function getSongs(token, genre,numSongs, setError) {
     .then((data) => {
       return data;
     })
-    .catch((err) => setError (err));
+    .catch((err) => setError(err));
 }
-function addSongsToPlaylist(playlist_id, token, songs,setError) {
+function addSongsToPlaylist(playlist_id, token, songs, setError) {
   const auth = {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -201,16 +201,85 @@ function getPlaylistDetails(token, createdPlaylistId, setError) {
     .then((data) => {
       return data;
     })
-    .catch((err) => setError (err));
+    .catch((err) => setError(err));
+}
+
+function getTop3artists(token, setError) {
+  const auth = {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return fetch(
+    "https://api.spotify.com/v1/me/top/artists?time_range=long_term",
+    auth
+  )
+    .then((res) => {
+      if (!res.ok) {
+        setError("Failed to fetch Top Artists");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => setError(err));
+}
+
+function getRecentSongs(token, setError) {
+  const auth = {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return fetch(
+    "https://api.spotify.com/v1/me/player/recently-played?limit=30",
+    auth
+  )
+    .then((res) => {
+      if (!res.ok) {
+        setError("Failed to fetch Recent Songs");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => setError(err));
+}
+
+function getNewReleases(token,setError){
+   const auth = {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return fetch(
+    "https://api.spotify.com/v1/browse/new-releases?limit=3",
+    auth
+  )
+    .then((res) => {
+      if (!res.ok) {
+        setError("Failed to fetch New Songs");
+      } else {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => setError(err));
 }
 export {
   fetchAuthToken,
   getProfile,
   getPlaylists,
-  getTop5Songs,
+  getTop3Songs,
   getGenres,
   makePlaylist,
   getSongs,
   addSongsToPlaylist,
   getPlaylistDetails,
+  getTop3artists,
+  getRecentSongs,
+  getNewReleases
 };

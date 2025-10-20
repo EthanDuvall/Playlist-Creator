@@ -1,11 +1,9 @@
 @import "../../util/variables.scss";
 
-
-
 header {
   display: flex;
-  padding-left: 3vh;
-  padding-right: 3vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
   justify-content: space-between;
   align-items: center;
   background-color: $primary;
@@ -14,17 +12,17 @@ header {
   h1 {
     font-size: 5vh;
   }
-
-  border-bottom: solid 6px $secondary;
 }
 
 .spotifyLogo {
-  height: 100px;
+  height: 11vh;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
 }
 
 main {
   background-color: $secondary;
-  height: 86vh;
+  height:85vh;
 }
 
 .welcome-container {
