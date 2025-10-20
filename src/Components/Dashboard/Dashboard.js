@@ -194,6 +194,15 @@ function Dashboard({
         .catch((error) => {
           setError(error);
         });
+      getRecentSongs(authToken, setError)
+       .then((fetchRecent) => {
+          if (fetchRecent) {
+            setRecentSongs(fetchRecent);
+          }
+        })
+        .catch((error) => {
+          setError(error);
+        });
       getNewReleases(authToken)
         .then((fetchReleases) => {
           if (fetchReleases) {

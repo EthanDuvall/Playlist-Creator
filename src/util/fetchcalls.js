@@ -210,7 +210,7 @@ function getTop3artists(token, setError) {
     headers: { Authorization: `Bearer ${token}` },
   };
   return fetch(
-    "https://api.spotify.com/v1/me/top/artists?time_range=long_term",
+    "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=3",
     auth
   )
     .then((res) => {
