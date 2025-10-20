@@ -254,7 +254,7 @@ function getNewReleases(token,setError){
     headers: { Authorization: `Bearer ${token}` },
   };
   return fetch(
-    "https://api.spotify.com/v1/browse/new-releases?limit=5",
+    "https://api.spotify.com/v1/browse/new-releases?limit=3",
     auth
   )
     .then((res) => {
