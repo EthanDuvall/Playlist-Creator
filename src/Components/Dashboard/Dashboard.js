@@ -194,26 +194,26 @@ function Dashboard({
         .catch((error) => {
           setError(error);
         });
-      getRecentSongs(authToken, setError)
-        .then((fetchRecent) => {
-          if (fetchRecent) {
-            setRecentSongs(fetchRecent);
-          }
-        })
-        .catch((error) => {
-          setError(error);
-        });
       if (false) {
-        getNewReleases(authToken)
-          .then((fetchReleases) => {
-            if (fetchReleases) {
-              setNewReleases(fetchReleases);
+        getRecentSongs(authToken, setError)
+          .then((fetchRecent) => {
+            if (fetchRecent) {
+              setRecentSongs(fetchRecent);
             }
           })
           .catch((error) => {
             setError(error);
           });
       }
+      getNewReleases(authToken)
+        .then((fetchReleases) => {
+          if (fetchReleases) {
+            setNewReleases(fetchReleases);
+          }
+        })
+        .catch((error) => {
+          setError(error);
+        });
     }
   }, [authToken]);
   useEffect(() => {
